@@ -1,6 +1,6 @@
 # MPC 钱包系统交付物
 
-本目录是论文配套的可运行演示交付物。它实现 RESTful 服务、会话审批绑定、7 张 MySQL 表定义、Docker 部署文件、20 项以上自动化功能测试、3节点DKG/2节点门限签名集成测试和 100 并发会话创建压力测试。
+本目录是论文配套的可运行演示交付物。它实现 RESTful 服务、会话审批绑定、7 张 MySQL 表定义、Docker 部署文件、分层接口测试、3节点DKG/2节点门限签名集成测试和 100 并发会话创建压力测试。
 
 ## 运行
 
@@ -10,6 +10,34 @@ go run ./cmd/server
 ```
 
 启动后访问 `http://127.0.0.1:8080` 可打开随服务提供的管理后台。前端位于 `web/`，无需单独安装 Node.js 依赖；可以创建签名会话，并以两个不同节点完成审批，随后在交易与审计页面查看联动结果。
+
+## 项目结构
+
+- `routes/`：Gin 路由注册与 `/api/v1` 业务分组。
+- `app/tss_wallet/api/controllers/`：请求绑定和统一响应出口。
+- `app/tss_wallet/api/services/`：钱包、交易、签名会话、节点与审计的业务状态机。
+- `app/tss_wallet/api/requests/`：接口请求对象与参数校验规则。
+- `models/`：钱包、参与方、交易、会话、密钥版本和审计记录模型。
+- `common/`：与管理项目一致的 `code`、`message`、`data` 响应结构。
+
+## API 概览
+
+| 路由 | 方法 | 作用 |
+|---|---|---|
+| `/api/v1/health` | GET | 健康检查与门限参数 |
+| `/api/v1/wallets` | GET/POST | 查询或创建钱包元数据 |
+| `/api/v1/wallets/:id/addresses` | GET | 查询地址 |
+| `/api/v1/wallets/:id/balance` | GET | 查询演示余额 |
+| `/api/v1/transactions` | GET/POST | 查询或发起转账 |
+| `/api/v1/transactions/:id` | GET | 查询交易详情 |
+| `/api/v1/sign-sessions` | GET/POST | 查询或创建签名会话 |
+| `/api/v1/sign-sessions/:id/approve` | POST | 节点审批会话 |
+| `/api/v1/sign-sessions/:id/cancel` | POST | 取消会话 |
+| `/api/v1/participants` | GET | 查询参与方节点 |
+| `/api/v1/participants/:id/refresh` | POST | 发起重新共享请求 |
+| `/api/v1/nodes/heartbeat` | POST | 上报节点心跳 |
+| `/api/v1/audit-logs` | GET | 查询审计日志 |
+| `/api/v1/system/metrics` | GET | 查询系统指标 |
 
 ## 门限参数与协议边界
 
