@@ -11,10 +11,14 @@ import (
 
 // NewServer keeps controller construction and route grouping in one location,
 // matching the route-registration style of the supplied reference project.
-func NewServer(staticDir string) *gin.Engine {
+func NewServer(staticDir string, servicesOverride ...*services.TSSWalletService) *gin.Engine {
 	engine := gin.New()
 	engine.Use(gin.Logger(), gin.Recovery(), cors())
-	controller := controllers.NewTSSWalletController(services.NewTSSWalletService())
+	tssService := services.NewTSSWalletService()
+	if len(servicesOverride) > 0 && servicesOverride[0] != nil {
+		tssService = servicesOverride[0]
+	}
+	controller := controllers.NewTSSWalletController(tssService)
 
 	api := engine.Group("/api/v1")
 	{

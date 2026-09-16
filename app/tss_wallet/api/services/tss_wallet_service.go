@@ -1,6 +1,7 @@
 package services
 
 import (
+	"context"
 	"crypto/sha256"
 	"encoding/hex"
 	"errors"
@@ -20,7 +21,7 @@ var (
 )
 
 // TSSWalletService is the business layer. In-memory state is intentional for
-// the thesis demonstration; deploy/schema.sql defines the persistence boundary.
+// the thesis demonstration; databases/migrations defines the persistence boundary.
 type TSSWalletService struct {
 	mu           sync.RWMutex
 	sequence     uint64
@@ -30,9 +31,10 @@ type TSSWalletService struct {
 	sessions     map[string]models.SignSession
 	epochs       []models.KeyEpoch
 	audits       []models.AuditLog
+	publisher    SessionEventPublisher
 }
 
-func NewTSSWalletService() *TSSWalletService {
+func NewTSSWalletService(publishers ...SessionEventPublisher) *TSSWalletService {
 	now := time.Now().UTC()
 	wallet := models.Wallet{ID: "wallet-demo-001", PublicKey: "tss-demo-public-key", Address: "demo-address", Network: "testnet", Status: "active", CreatedAt: now, UpdatedAt: now}
 	participants := map[string]models.Participant{}
@@ -40,13 +42,17 @@ func NewTSSWalletService() *TSSWalletService {
 		id := fmt.Sprintf("node-%d", index)
 		participants[id] = models.Participant{ID: id, Endpoint: fmt.Sprintf("https://%s.internal:9443", id), CertificateFingerprint: "demo-cert-" + id, Status: "online", KeyEpoch: 1, Version: "tss-agent/1.5.0", LastHeartbeat: now}
 	}
-	return &TSSWalletService{
+	service := &TSSWalletService{
 		wallets:      map[string]models.Wallet{wallet.ID: wallet},
 		participants: participants,
 		transactions: make(map[string]models.Transaction),
 		sessions:     make(map[string]models.SignSession),
 		epochs:       []models.KeyEpoch{{WalletID: wallet.ID, Epoch: 1, Operation: "dkg", PublicKeyUnchanged: false, Status: "active", CreatedAt: now}},
 	}
+	if len(publishers) > 0 {
+		service.publisher = publishers[0]
+	}
+	return service
 }
 
 func (s *TSSWalletService) ListWallets() []models.Wallet {
@@ -159,6 +165,7 @@ func (s *TSSWalletService) CreateSession(req requests.CreateSignSessionReq) (mod
 		s.transactions[tx.ID] = tx
 	}
 	s.appendAudit("operator", "create_sign_session", "success", "Created 2-of-3 signing session", session.ID, now)
+	s.publishSessionEvent(session, "created")
 	return session, nil
 }
 
@@ -215,6 +222,7 @@ func (s *TSSWalletService) ApproveSession(id, nodeID string) (models.SignSession
 		}
 	}
 	s.sessions[id] = session
+	s.publishSessionEvent(session, "approval_recorded")
 	return session, nil
 }
 
@@ -237,6 +245,7 @@ func (s *TSSWalletService) CancelSession(id string) (models.SignSession, error) 
 		s.transactions[tx.ID] = tx
 	}
 	s.appendAudit("operator", "cancel_sign_session", "success", "Cancelled signing session", session.ID, now)
+	s.publishSessionEvent(session, "cancelled")
 	return session, nil
 }
 
@@ -307,6 +316,20 @@ func (s *TSSWalletService) Metrics() map[string]any {
 func (s *TSSWalletService) appendAudit(actor, action, result, detail, sessionID string, now time.Time) {
 	s.sequence++
 	s.audits = append(s.audits, models.AuditLog{ID: fmt.Sprintf("audit-%06d", s.sequence), Actor: actor, Action: action, Result: result, Detail: detail, SessionID: sessionID, CreatedAt: now})
+}
+
+func (s *TSSWalletService) publishSessionEvent(session models.SignSession, eventType string) {
+	if s.publisher == nil {
+		return
+	}
+	event := SessionEvent{SessionID: session.ID, Type: eventType, Status: session.Status, CreatedAt: time.Now().UTC()}
+	go func() {
+		ctx, cancel := context.WithTimeout(context.Background(), time.Second)
+		defer cancel()
+		if err := s.publisher.PublishSessionEvent(ctx, event); err != nil {
+			return
+		}
+	}()
 }
 
 func (s *TSSWalletService) nextID(prefix string, now time.Time) string {

@@ -1,0 +1,9 @@
+DROP TABLE IF EXISTS node_heartbeats;
+DROP TABLE IF EXISTS audit_logs;
+DROP TABLE IF EXISTS approvals;
+DROP TABLE IF EXISTS sign_sessions;
+DROP TABLE IF EXISTS transactions;
+DROP TABLE IF EXISTS key_epochs;
+DROP TABLE IF EXISTS participants;
+DROP TABLE IF EXISTS wallet_share_refs;
+DROP TABLE IF EXISTS wallets;
