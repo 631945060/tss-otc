@@ -9,6 +9,8 @@ go test ./... -count=1 -v
 go run ./cmd/server
 ```
 
+启动后访问 `http://127.0.0.1:8080` 可打开随服务提供的管理后台。前端位于 `web/`，无需单独安装 Node.js 依赖；可以创建签名会话，并以两个不同节点完成审批，随后在交易与审计页面查看联动结果。
+
 ## 门限参数与协议边界
 
 `go.mod` 固定使用 `github.com/bnb-chain/tss-lib v1.5.0`。`internal/tssconfig/config.go` 将 3 个参与方和库参数 `threshold=1` 映射为 2-of-3 策略：该参数为多项式阶数，所需协作参与方数为 `threshold + 1`。
