@@ -1,0 +1,448 @@
+=== RUN   TestE2EConcurrent
+ACTIVE GOROUTINES: 14
+[0;37m15:20:29.262  INFO [0;34m   tss-lib: [0mparty {5,6}: signing round 1 starting [0;37mparty.go:135[0m
+[0;37m15:20:29.262  INFO [0;34m   tss-lib: [0mparty {2,18}: signing round 1 starting [0;37mparty.go:135[0m
+[0;37m15:20:29.263  INFO [0;34m   tss-lib: [0mparty {6,2}: signing round 1 starting [0;37mparty.go:135[0m
+[0;37m15:20:29.263  INFO [0;34m   tss-lib: [0mparty {0,13}: signing round 1 starting [0;37mparty.go:135[0m
+[0;37m15:20:29.263  INFO [0;34m   tss-lib: [0mparty {3,12}: signing round 1 starting [0;37mparty.go:135[0m
+[0;37m15:20:29.264  INFO [0;34m   tss-lib: [0mparty {8,5}: signing round 1 starting [0;37mparty.go:135[0m
+[0;37m15:20:29.265  INFO [0;34m   tss-lib: [0mparty {7,4}: signing round 1 starting [0;37mparty.go:135[0m
+[0;37m15:20:29.265  INFO [0;34m   tss-lib: [0mparty {1,17}: signing round 1 starting [0;37mparty.go:135[0m
+[0;37m15:20:29.265  INFO [0;34m   tss-lib: [0mparty {4,20}: signing round 1 starting [0;37mparty.go:135[0m
+[0;37m15:20:29.266  INFO [0;34m   tss-lib: [0mparty {9,7}: signing round 1 starting [0;37mparty.go:135[0m
+[0;37m15:20:29.268  INFO [0;34m   tss-lib: [0mparty {10,8}: signing round 1 starting [0;37mparty.go:135[0m
+ACTIVE GOROUTINES: 15
+ACTIVE GOROUTINES: 16
+ACTIVE GOROUTINES: 17
+ACTIVE GOROUTINES: 18
+ACTIVE GOROUTINES: 19
+ACTIVE GOROUTINES: 20
+ACTIVE GOROUTINES: 21
+ACTIVE GOROUTINES: 22
+ACTIVE GOROUTINES: 23
+ACTIVE GOROUTINES: 24
+ACTIVE GOROUTINES: 25
+ACTIVE GOROUTINES: 26
+ACTIVE GOROUTINES: 27
+ACTIVE GOROUTINES: 28
+ACTIVE GOROUTINES: 29
+ACTIVE GOROUTINES: 30
+ACTIVE GOROUTINES: 31
+ACTIVE GOROUTINES: 32
+ACTIVE GOROUTINES: 33
+ACTIVE GOROUTINES: 34
+ACTIVE GOROUTINES: 35
+ACTIVE GOROUTINES: 36
+ACTIVE GOROUTINES: 37
+ACTIVE GOROUTINES: 38
+ACTIVE GOROUTINES: 39
+ACTIVE GOROUTINES: 40
+ACTIVE GOROUTINES: 41
+ACTIVE GOROUTINES: 42
+ACTIVE GOROUTINES: 43
+ACTIVE GOROUTINES: 44
+ACTIVE GOROUTINES: 45
+ACTIVE GOROUTINES: 46
+ACTIVE GOROUTINES: 47
+ACTIVE GOROUTINES: 48
+ACTIVE GOROUTINES: 49
+ACTIVE GOROUTINES: 50
+ACTIVE GOROUTINES: 51
+ACTIVE GOROUTINES: 52
+ACTIVE GOROUTINES: 53
+ACTIVE GOROUTINES: 54
+ACTIVE GOROUTINES: 55
+ACTIVE GOROUTINES: 56
+ACTIVE GOROUTINES: 57
+ACTIVE GOROUTINES: 58
+ACTIVE GOROUTINES: 59
+ACTIVE GOROUTINES: 60
+ACTIVE GOROUTINES: 61
+ACTIVE GOROUTINES: 62
+ACTIVE GOROUTINES: 63
+ACTIVE GOROUTINES: 64
+ACTIVE GOROUTINES: 65
+ACTIVE GOROUTINES: 66
+ACTIVE GOROUTINES: 67
+ACTIVE GOROUTINES: 68
+ACTIVE GOROUTINES: 69
+ACTIVE GOROUTINES: 70
+ACTIVE GOROUTINES: 71
+ACTIVE GOROUTINES: 72
+ACTIVE GOROUTINES: 73
+ACTIVE GOROUTINES: 74
+ACTIVE GOROUTINES: 75
+ACTIVE GOROUTINES: 76
+ACTIVE GOROUTINES: 77
+ACTIVE GOROUTINES: 78
+ACTIVE GOROUTINES: 79
+ACTIVE GOROUTINES: 80
+ACTIVE GOROUTINES: 81
+ACTIVE GOROUTINES: 82
+ACTIVE GOROUTINES: 83
+ACTIVE GOROUTINES: 84
+ACTIVE GOROUTINES: 85
+ACTIVE GOROUTINES: 86
+ACTIVE GOROUTINES: 87
+ACTIVE GOROUTINES: 88
+ACTIVE GOROUTINES: 89
+ACTIVE GOROUTINES: 90
+ACTIVE GOROUTINES: 91
+ACTIVE GOROUTINES: 92
+ACTIVE GOROUTINES: 93
+ACTIVE GOROUTINES: 94
+ACTIVE GOROUTINES: 95
+ACTIVE GOROUTINES: 96
+ACTIVE GOROUTINES: 97
+ACTIVE GOROUTINES: 98
+ACTIVE GOROUTINES: 99
+ACTIVE GOROUTINES: 100
+ACTIVE GOROUTINES: 101
+ACTIVE GOROUTINES: 102
+ACTIVE GOROUTINES: 103
+ACTIVE GOROUTINES: 104
+ACTIVE GOROUTINES: 105
+ACTIVE GOROUTINES: 106
+ACTIVE GOROUTINES: 107
+ACTIVE GOROUTINES: 108
+ACTIVE GOROUTINES: 109
+ACTIVE GOROUTINES: 110
+ACTIVE GOROUTINES: 111
+ACTIVE GOROUTINES: 101
+ACTIVE GOROUTINES: 111
+ACTIVE GOROUTINES: 112
+ACTIVE GOROUTINES: 113
+ACTIVE GOROUTINES: 102
+ACTIVE GOROUTINES: 112
+ACTIVE GOROUTINES: 99
+ACTIVE GOROUTINES: 109
+ACTIVE GOROUTINES: 106
+ACTIVE GOROUTINES: 109
+ACTIVE GOROUTINES: 96
+ACTIVE GOROUTINES: 97
+ACTIVE GOROUTINES: 82
+ACTIVE GOROUTINES: 88
+ACTIVE GOROUTINES: 77
+ACTIVE GOROUTINES: 78
+ACTIVE GOROUTINES: 67
+ACTIVE GOROUTINES: 70
+ACTIVE GOROUTINES: 60
+ACTIVE GOROUTINES: 65
+ACTIVE GOROUTINES: 37
+ACTIVE GOROUTINES: 42
+ACTIVE GOROUTINES: 20
+ACTIVE GOROUTINES: 26
+[0;37m15:20:30.656  INFO [0;34m   tss-lib: [0mparty {0,13}: signing round 2 started [0;37mparty.go:172[0m
+ACTIVE GOROUTINES: 54
+ACTIVE GOROUTINES: 55
+ACTIVE GOROUTINES: 56
+ACTIVE GOROUTINES: 57
+ACTIVE GOROUTINES: 58
+ACTIVE GOROUTINES: 59
+ACTIVE GOROUTINES: 60
+ACTIVE GOROUTINES: 61
+ACTIVE GOROUTINES: 62
+ACTIVE GOROUTINES: 63
+[0;37m15:20:30.756  INFO [0;34m   tss-lib: [0mparty {9,7}: signing round 2 started [0;37mparty.go:172[0m
+ACTIVE GOROUTINES: 36
+ACTIVE GOROUTINES: 37
+ACTIVE GOROUTINES: 38
+ACTIVE GOROUTINES: 39
+ACTIVE GOROUTINES: 40
+ACTIVE GOROUTINES: 41
+ACTIVE GOROUTINES: 42
+ACTIVE GOROUTINES: 43
+ACTIVE GOROUTINES: 44
+ACTIVE GOROUTINES: 45
+[0;37m15:20:30.779  INFO [0;34m   tss-lib: [0mparty {4,20}: signing round 2 started [0;37mparty.go:172[0m
+ACTIVE GOROUTINES: 38
+ACTIVE GOROUTINES: 39
+ACTIVE GOROUTINES: 40
+ACTIVE GOROUTINES: 41
+ACTIVE GOROUTINES: 42
+ACTIVE GOROUTINES: 43
+ACTIVE GOROUTINES: 44
+ACTIVE GOROUTINES: 45
+ACTIVE GOROUTINES: 46
+ACTIVE GOROUTINES: 47
+[0;37m15:20:30.786  INFO [0;34m   tss-lib: [0mparty {5,6}: signing round 2 started [0;37mparty.go:172[0m
+ACTIVE GOROUTINES: 41
+ACTIVE GOROUTINES: 42
+ACTIVE GOROUTINES: 43
+ACTIVE GOROUTINES: 44
+ACTIVE GOROUTINES: 45
+ACTIVE GOROUTINES: 46
+ACTIVE GOROUTINES: 47
+ACTIVE GOROUTINES: 48
+ACTIVE GOROUTINES: 49
+ACTIVE GOROUTINES: 50
+[0;37m15:20:30.799  INFO [0;34m   tss-lib: [0mparty {6,2}: signing round 2 started [0;37mparty.go:172[0m
+ACTIVE GOROUTINES: 41
+ACTIVE GOROUTINES: 42
+ACTIVE GOROUTINES: 43
+ACTIVE GOROUTINES: 44
+ACTIVE GOROUTINES: 45
+ACTIVE GOROUTINES: 46
+ACTIVE GOROUTINES: 47
+ACTIVE GOROUTINES: 48
+ACTIVE GOROUTINES: 49
+ACTIVE GOROUTINES: 50
+ACTIVE GOROUTINES: 46
+ACTIVE GOROUTINES: 47
+ACTIVE GOROUTINES: 48
+ACTIVE GOROUTINES: 49
+ACTIVE GOROUTINES: 50
+ACTIVE GOROUTINES: 51
+ACTIVE GOROUTINES: 52
+[0;37m15:20:30.803  INFO [0;34m   tss-lib: [0mparty {7,4}: signing round 2 started [0;37mparty.go:172[0m
+ACTIVE GOROUTINES: 47
+ACTIVE GOROUTINES: 48
+ACTIVE GOROUTINES: 49
+ACTIVE GOROUTINES: 44
+ACTIVE GOROUTINES: 45
+ACTIVE GOROUTINES: 46
+ACTIVE GOROUTINES: 47
+ACTIVE GOROUTINES: 48
+ACTIVE GOROUTINES: 49
+ACTIVE GOROUTINES: 50
+[0;37m15:20:30.819  INFO [0;34m   tss-lib: [0mparty {3,12}: signing round 2 started [0;37mparty.go:172[0m
+ACTIVE GOROUTINES: 44
+ACTIVE GOROUTINES: 45
+ACTIVE GOROUTINES: 46
+ACTIVE GOROUTINES: 40
+ACTIVE GOROUTINES: 41
+ACTIVE GOROUTINES: 42
+ACTIVE GOROUTINES: 43
+ACTIVE GOROUTINES: 44
+ACTIVE GOROUTINES: 45
+ACTIVE GOROUTINES: 46
+ACTIVE GOROUTINES: 47
+[0;37m15:20:30.830  INFO [0;34m   tss-lib: [0mparty {1,17}: signing round 2 started [0;37mparty.go:172[0m
+ACTIVE GOROUTINES: 48
+ACTIVE GOROUTINES: 48
+ACTIVE GOROUTINES: 34
+[0;37m15:20:30.837  INFO [0;34m   tss-lib: [0mparty {8,5}: signing round 2 started [0;37mparty.go:172[0m
+ACTIVE GOROUTINES: 26
+ACTIVE GOROUTINES: 27
+ACTIVE GOROUTINES: 28
+ACTIVE GOROUTINES: 28
+ACTIVE GOROUTINES: 29
+ACTIVE GOROUTINES: 29
+ACTIVE GOROUTINES: 27
+ACTIVE GOROUTINES: 28
+ACTIVE GOROUTINES: 29
+ACTIVE GOROUTINES: 25
+[0;37m15:20:30.842  INFO [0;34m   tss-lib: [0mparty {2,18}: signing round 2 started [0;37mparty.go:172[0m
+ACTIVE GOROUTINES: 26
+ACTIVE GOROUTINES: 27
+ACTIVE GOROUTINES: 27
+ACTIVE GOROUTINES: 28
+ACTIVE GOROUTINES: 28
+ACTIVE GOROUTINES: 29
+ACTIVE GOROUTINES: 29
+ACTIVE GOROUTINES: 28
+ACTIVE GOROUTINES: 28
+ACTIVE GOROUTINES: 15
+ACTIVE GOROUTINES: 16
+ACTIVE GOROUTINES: 17
+ACTIVE GOROUTINES: 18
+[0;37m15:20:30.857  INFO [0;34m   tss-lib: [0mparty {10,8}: signing round 2 started [0;37mparty.go:172[0m
+ACTIVE GOROUTINES: 60
+ACTIVE GOROUTINES: 59
+ACTIVE GOROUTINES: 60
+ACTIVE GOROUTINES: 60
+ACTIVE GOROUTINES: 61
+ACTIVE GOROUTINES: 61
+[0;37m15:20:31.340  INFO [0;34m   tss-lib: [0mparty {6,2}: signing round 3 started [0;37mparty.go:172[0m
+ACTIVE GOROUTINES: 127
+[0;37m15:20:31.496  INFO [0;34m   tss-lib: [0mparty {7,4}: signing round 3 started [0;37mparty.go:172[0m
+ACTIVE GOROUTINES: 93
+[0;37m15:20:31.520  INFO [0;34m   tss-lib: [0mparty {8,5}: signing round 3 started [0;37mparty.go:172[0m
+ACTIVE GOROUTINES: 95
+[0;37m15:20:31.604  INFO [0;34m   tss-lib: [0mparty {10,8}: signing round 3 started [0;37mparty.go:172[0m
+ACTIVE GOROUTINES: 75
+[0;37m15:20:31.692  INFO [0;34m   tss-lib: [0mparty {0,13}: signing round 3 started [0;37mparty.go:172[0m
+ACTIVE GOROUTINES: 52
+[0;37m15:20:31.713  INFO [0;34m   tss-lib: [0mparty {3,12}: signing round 3 started [0;37mparty.go:172[0m
+ACTIVE GOROUTINES: 48
+[0;37m15:20:31.717  INFO [0;34m   tss-lib: [0mparty {2,18}: signing round 3 started [0;37mparty.go:172[0m
+ACTIVE GOROUTINES: 45
+[0;37m15:20:31.718  INFO [0;34m   tss-lib: [0mparty {9,7}: signing round 3 started [0;37mparty.go:172[0m
+ACTIVE GOROUTINES: 44
+ACTIVE GOROUTINES: 42
+[0;37m15:20:31.723  INFO [0;34m   tss-lib: [0mparty {5,6}: signing round 3 started [0;37mparty.go:172[0m
+[0;37m15:20:31.726  INFO [0;34m   tss-lib: [0mparty {1,17}: signing round 3 started [0;37mparty.go:172[0m
+ACTIVE GOROUTINES: 23
+[0;37m15:20:31.728  INFO [0;34m   tss-lib: [0mparty {4,20}: signing round 3 started [0;37mparty.go:172[0m
+ACTIVE GOROUTINES: 24
+ACTIVE GOROUTINES: 24
+[0;37m15:20:31.728  INFO [0;34m   tss-lib: [0mparty {0,13}: signing round 4 started [0;37mparty.go:172[0m
+[0;37m15:20:31.728  INFO [0;34m   tss-lib: [0mparty {7,4}: signing round 4 started [0;37mparty.go:172[0m
+ACTIVE GOROUTINES: 33
+[0;37m15:20:31.728  INFO [0;34m   tss-lib: [0mparty {10,8}: signing round 4 started [0;37mparty.go:172[0m
+[0;37m15:20:31.728  INFO [0;34m   tss-lib: [0mparty {5,6}: signing round 4 started [0;37mparty.go:172[0m
+ACTIVE GOROUTINES: 36
+[0;37m15:20:31.728  INFO [0;34m   tss-lib: [0mparty {6,2}: signing round 4 started [0;37mparty.go:172[0m
+ACTIVE GOROUTINES: 39
+[0;37m15:20:31.728  INFO [0;34m   tss-lib: [0mparty {4,20}: signing round 4 started [0;37mparty.go:172[0m
+ACTIVE GOROUTINES: 40
+[0;37m15:20:31.728  INFO [0;34m   tss-lib: [0mparty {2,18}: signing round 4 started [0;37mparty.go:172[0m
+ACTIVE GOROUTINES: 38
+[0;37m15:20:31.728  INFO [0;34m   tss-lib: [0mparty {9,7}: signing round 4 started [0;37mparty.go:172[0m
+ACTIVE GOROUTINES: 46
+ACTIVE GOROUTINES: 50
+ACTIVE GOROUTINES: 59
+[0;37m15:20:31.728  INFO [0;34m   tss-lib: [0mparty {3,12}: signing round 4 started [0;37mparty.go:172[0m
+[0;37m15:20:31.728  INFO [0;34m   tss-lib: [0mparty {8,5}: signing round 4 started [0;37mparty.go:172[0m
+[0;37m15:20:31.728  INFO [0;34m   tss-lib: [0mparty {1,17}: signing round 4 started [0;37mparty.go:172[0m
+ACTIVE GOROUTINES: 34
+ACTIVE GOROUTINES: 36
+[0;37m15:20:31.729  INFO [0;34m   tss-lib: [0mparty {0,13}: signing round 5 started [0;37mparty.go:172[0m
+ACTIVE GOROUTINES: 24
+[0;37m15:20:31.729  INFO [0;34m   tss-lib: [0mparty {10,8}: signing round 5 started [0;37mparty.go:172[0m
+[0;37m15:20:31.729  INFO [0;34m   tss-lib: [0mparty {5,6}: signing round 5 started [0;37mparty.go:172[0m
+ACTIVE GOROUTINES: 33
+ACTIVE GOROUTINES: 41
+[0;37m15:20:31.729  INFO [0;34m   tss-lib: [0mparty {7,4}: signing round 5 started [0;37mparty.go:172[0m
+ACTIVE GOROUTINES: 47
+[0;37m15:20:31.729  INFO [0;34m   tss-lib: [0mparty {6,2}: signing round 5 started [0;37mparty.go:172[0m
+ACTIVE GOROUTINES: 53
+[0;37m15:20:31.729  INFO [0;34m   tss-lib: [0mparty {2,18}: signing round 5 started [0;37mparty.go:172[0m
+ACTIVE GOROUTINES: 47
+[0;37m15:20:31.730  INFO [0;34m   tss-lib: [0mparty {3,12}: signing round 5 started [0;37mparty.go:172[0m
+ACTIVE GOROUTINES: 45
+ACTIVE GOROUTINES: 45
+[0;37m15:20:31.730  INFO [0;34m   tss-lib: [0mparty {9,7}: signing round 5 started [0;37mparty.go:172[0m
+[0;37m15:20:31.730  INFO [0;34m   tss-lib: [0mparty {4,20}: signing round 5 started [0;37mparty.go:172[0m
+ACTIVE GOROUTINES: 38
+[0;37m15:20:31.731  INFO [0;34m   tss-lib: [0mparty {1,17}: signing round 5 started [0;37mparty.go:172[0m
+ACTIVE GOROUTINES: 25
+[0;37m15:20:31.731  INFO [0;34m   tss-lib: [0mparty {8,5}: signing round 5 started [0;37mparty.go:172[0m
+ACTIVE GOROUTINES: 14
+[0;37m15:20:31.731  INFO [0;34m   tss-lib: [0mparty {8,5}: signing round 6 started [0;37mparty.go:172[0m
+[0;37m15:20:31.731  INFO [0;34m   tss-lib: [0mparty {2,18}: signing round 6 started [0;37mparty.go:172[0m
+ACTIVE GOROUTINES: 23
+[0;37m15:20:31.731  INFO [0;34m   tss-lib: [0mparty {3,12}: signing round 6 started [0;37mparty.go:172[0m
+[0;37m15:20:31.731  INFO [0;34m   tss-lib: [0mparty {1,17}: signing round 6 started [0;37mparty.go:172[0m
+ACTIVE GOROUTINES: 31
+[0;37m15:20:31.731  INFO [0;34m   tss-lib: [0mparty {4,20}: signing round 6 started [0;37mparty.go:172[0m
+ACTIVE GOROUTINES: 37
+[0;37m15:20:31.731  INFO [0;34m   tss-lib: [0mparty {0,13}: signing round 6 started [0;37mparty.go:172[0m
+ACTIVE GOROUTINES: 44
+[0;37m15:20:31.731  INFO [0;34m   tss-lib: [0mparty {10,8}: signing round 6 started [0;37mparty.go:172[0m
+ACTIVE GOROUTINES: 49
+ACTIVE GOROUTINES: 56
+ACTIVE GOROUTINES: 62
+[0;37m15:20:31.731  INFO [0;34m   tss-lib: [0mparty {6,2}: signing round 6 started [0;37mparty.go:172[0m
+[0;37m15:20:31.731  INFO [0;34m   tss-lib: [0mparty {7,4}: signing round 6 started [0;37mparty.go:172[0m
+ACTIVE GOROUTINES: 44
+ACTIVE GOROUTINES: 40
+[0;37m15:20:31.731  INFO [0;34m   tss-lib: [0mparty {5,6}: signing round 6 started [0;37mparty.go:172[0m
+[0;37m15:20:31.731  INFO [0;34m   tss-lib: [0mparty {9,7}: signing round 6 started [0;37mparty.go:172[0m
+ACTIVE GOROUTINES: 13
+ACTIVE GOROUTINES: 22
+[0;37m15:20:31.735  INFO [0;34m   tss-lib: [0mparty {9,7}: signing round 7 started [0;37mparty.go:172[0m
+ACTIVE GOROUTINES: 23
+[0;37m15:20:31.735  INFO [0;34m   tss-lib: [0mparty {5,6}: signing round 7 started [0;37mparty.go:172[0m
+[0;37m15:20:31.735  INFO [0;34m   tss-lib: [0mparty {7,4}: signing round 7 started [0;37mparty.go:172[0m
+ACTIVE GOROUTINES: 32
+ACTIVE GOROUTINES: 41
+[0;37m15:20:31.735  INFO [0;34m   tss-lib: [0mparty {10,8}: signing round 7 started [0;37mparty.go:172[0m
+ACTIVE GOROUTINES: 50
+[0;37m15:20:31.735  INFO [0;34m   tss-lib: [0mparty {2,18}: signing round 7 started [0;37mparty.go:172[0m
+ACTIVE GOROUTINES: 58
+[0;37m15:20:31.736  INFO [0;34m   tss-lib: [0mparty {8,5}: signing round 7 started [0;37mparty.go:172[0m
+ACTIVE GOROUTINES: 43
+[0;37m15:20:31.736  INFO [0;34m   tss-lib: [0mparty {1,17}: signing round 7 started [0;37mparty.go:172[0m
+ACTIVE GOROUTINES: 41
+[0;37m15:20:31.737  INFO [0;34m   tss-lib: [0mparty {6,2}: signing round 7 started [0;37mparty.go:172[0m
+ACTIVE GOROUTINES: 37
+[0;37m15:20:31.737  INFO [0;34m   tss-lib: [0mparty {0,13}: signing round 7 started [0;37mparty.go:172[0m
+ACTIVE GOROUTINES: 31
+[0;37m15:20:31.738  INFO [0;34m   tss-lib: [0mparty {3,12}: signing round 7 started [0;37mparty.go:172[0m
+ACTIVE GOROUTINES: 27
+[0;37m15:20:31.739  INFO [0;34m   tss-lib: [0mparty {4,20}: signing round 7 started [0;37mparty.go:172[0m
+ACTIVE GOROUTINES: 15
+[0;37m15:20:31.739  INFO [0;34m   tss-lib: [0mparty {4,20}: signing round 8 started [0;37mparty.go:172[0m
+ACTIVE GOROUTINES: 23
+ACTIVE GOROUTINES: 33
+[0;37m15:20:31.739  INFO [0;34m   tss-lib: [0mparty {10,8}: signing round 8 started [0;37mparty.go:172[0m
+[0;37m15:20:31.739  INFO [0;34m   tss-lib: [0mparty {5,6}: signing round 8 started [0;37mparty.go:172[0m
+ACTIVE GOROUTINES: 40
+[0;37m15:20:31.739  INFO [0;34m   tss-lib: [0mparty {6,2}: signing round 8 started [0;37mparty.go:172[0m
+ACTIVE GOROUTINES: 42
+ACTIVE GOROUTINES: 50
+[0;37m15:20:31.739  INFO [0;34m   tss-lib: [0mparty {1,17}: signing round 8 started [0;37mparty.go:172[0m
+[0;37m15:20:31.739  INFO [0;34m   tss-lib: [0mparty {2,18}: signing round 8 started [0;37mparty.go:172[0m
+[0;37m15:20:31.739  INFO [0;34m   tss-lib: [0mparty {0,13}: signing round 8 started [0;37mparty.go:172[0m
+ACTIVE GOROUTINES: 42
+ACTIVE GOROUTINES: 47
+[0;37m15:20:31.739  INFO [0;34m   tss-lib: [0mparty {3,12}: signing round 8 started [0;37mparty.go:172[0m
+[0;37m15:20:31.739  INFO [0;34m   tss-lib: [0mparty {7,4}: signing round 8 started [0;37mparty.go:172[0m
+ACTIVE GOROUTINES: 56
+ACTIVE GOROUTINES: 57
+[0;37m15:20:31.739  INFO [0;34m   tss-lib: [0mparty {8,5}: signing round 8 started [0;37mparty.go:172[0m
+ACTIVE GOROUTINES: 58
+[0;37m15:20:31.739  INFO [0;34m   tss-lib: [0mparty {9,7}: signing round 8 started [0;37mparty.go:172[0m
+ACTIVE GOROUTINES: 40
+[0;37m15:20:31.739  INFO [0;34m   tss-lib: [0mparty {2,18}: signing round 9 started [0;37mparty.go:172[0m
+[0;37m15:20:31.739  INFO [0;34m   tss-lib: [0mparty {10,8}: signing round 9 started [0;37mparty.go:172[0m
+ACTIVE GOROUTINES: 23
+ACTIVE GOROUTINES: 32
+[0;37m15:20:31.739  INFO [0;34m   tss-lib: [0mparty {8,5}: signing round 9 started [0;37mparty.go:172[0m
+ACTIVE GOROUTINES: 42
+[0;37m15:20:31.739  INFO [0;34m   tss-lib: [0mparty {3,12}: signing round 9 started [0;37mparty.go:172[0m
+ACTIVE GOROUTINES: 48
+ACTIVE GOROUTINES: 56
+[0;37m15:20:31.739  INFO [0;34m   tss-lib: [0mparty {6,2}: signing round 9 started [0;37mparty.go:172[0m
+[0;37m15:20:31.739  INFO [0;34m   tss-lib: [0mparty {7,4}: signing round 9 started [0;37mparty.go:172[0m
+[0;37m15:20:31.739  INFO [0;34m   tss-lib: [0mparty {0,13}: signing round 9 started [0;37mparty.go:172[0m
+ACTIVE GOROUTINES: 43
+ACTIVE GOROUTINES: 53
+[0;37m15:20:31.739  INFO [0;34m   tss-lib: [0mparty {4,20}: signing round 9 started [0;37mparty.go:172[0m
+[0;37m15:20:31.739  INFO [0;34m   tss-lib: [0mparty {9,7}: signing round 9 started [0;37mparty.go:172[0m
+ACTIVE GOROUTINES: 37
+ACTIVE GOROUTINES: 45
+[0;37m15:20:31.739  INFO [0;34m   tss-lib: [0mparty {1,17}: signing round 9 started [0;37mparty.go:172[0m
+ACTIVE GOROUTINES: 27
+[0;37m15:20:31.739  INFO [0;34m   tss-lib: [0mparty {5,6}: signing round 9 started [0;37mparty.go:172[0m
+ACTIVE GOROUTINES: 31
+[0;37m15:20:31.740  INFO [0;34m   tss-lib: [0mparty {2,18}: signing round 10 started [0;37mparty.go:172[0m
+ACTIVE GOROUTINES: 14
+[0;37m15:20:31.740  INFO [0;34m   tss-lib: [0mparty {5,6}: signing round 10 started [0;37mparty.go:172[0m
+ACTIVE GOROUTINES: 14
+ACTIVE GOROUTINES: 14
+[0;37m15:20:31.740  INFO [0;34m   tss-lib: [0mparty {2,18}: signing finished! [0;37mparty.go:175[0m
+[0;37m15:20:31.740  INFO [0;34m   tss-lib: [0mparty {4,20}: signing round 10 started [0;37mparty.go:172[0m
+[0;37m15:20:31.740  INFO [0;34m   tss-lib: [0mparty {5,6}: signing finished! [0;37mparty.go:175[0m
+[0;37m15:20:31.740  INFO [0;34m   tss-lib: [0mparty {4,20}: signing finished! [0;37mparty.go:175[0m
+[0;37m15:20:31.740  INFO [0;34m   tss-lib: [0mparty {7,4}: signing round 10 started [0;37mparty.go:172[0m
+[0;37m15:20:31.740  INFO [0;34m   tss-lib: [0mparty {10,8}: signing round 10 started [0;37mparty.go:172[0m
+[0;37m15:20:31.740  INFO [0;34m   tss-lib: [0mparty {7,4}: signing finished! [0;37mparty.go:175[0m
+[0;37m15:20:31.740  INFO [0;34m   tss-lib: [0mparty {6,2}: signing round 10 started [0;37mparty.go:172[0m
+[0;37m15:20:31.740  INFO [0;34m   tss-lib: [0mparty {10,8}: signing finished! [0;37mparty.go:175[0m
+ACTIVE GOROUTINES: 10
+[0;37m15:20:31.740  INFO [0;34m   tss-lib: [0mparty {6,2}: signing finished! [0;37mparty.go:175[0m
+ACTIVE GOROUTINES: 9
+ACTIVE GOROUTINES: 8
+ACTIVE GOROUTINES: 8
+[0;37m15:20:31.740  INFO [0;34m   tss-lib: [0mparty {8,5}: signing round 10 started [0;37mparty.go:172[0m
+[0;37m15:20:31.740  INFO [0;34m   tss-lib: [0mparty {8,5}: signing finished! [0;37mparty.go:175[0m
+[0;37m15:20:31.740  INFO [0;34m   tss-lib: [0mparty {0,13}: signing round 10 started [0;37mparty.go:172[0m
+ACTIVE GOROUTINES: 7
+[0;37m15:20:31.740  INFO [0;34m   tss-lib: [0mparty {0,13}: signing finished! [0;37mparty.go:175[0m
+[0;37m15:20:31.740  INFO [0;34m   tss-lib: [0mparty {9,7}: signing round 10 started [0;37mparty.go:172[0m
+[0;37m15:20:31.740  INFO [0;34m   tss-lib: [0mparty {1,17}: signing round 10 started [0;37mparty.go:172[0m
+[0;37m15:20:31.740  INFO [0;34m   tss-lib: [0mparty {3,12}: signing round 10 started [0;37mparty.go:172[0m
+ACTIVE GOROUTINES: 6
+ACTIVE GOROUTINES: 6
+[0;37m15:20:31.740  INFO [0;34m   tss-lib: [0mparty {1,17}: signing finished! [0;37mparty.go:175[0m
+[0;37m15:20:31.740  INFO [0;34m   tss-lib: [0mparty {3,12}: signing finished! [0;37mparty.go:175[0m
+[0;37m15:20:31.740  INFO [0;34m   tss-lib: [0mparty {9,7}: signing finished! [0;37mparty.go:175[0m
+    local_party_test.go:101: Done. Received signature data from 11 participants
+sign result: R(34764390001889027091114632580787237884547239113992143136667749186267526744684, 97842470334790633757286386066844528922498254599648096569251720500924856537185), r=34764390001889027091114632580787237884547239113992143136667749186267526744684
+S: 84962933286172063412873868591529602845319843700774409920182410846905425325121
+    local_party_test.go:125: ECDSA signing test done.
+--- PASS: TestE2EConcurrent (2.50s)
+PASS
+ok  	github.com/bnb-chain/tss-lib/ecdsa/signing	3.169s

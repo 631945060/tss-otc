@@ -1,0 +1,6 @@
+# Local build outputs
+/server
+/wallet-api
+
+# Editor and operating-system files
+.DS_Store

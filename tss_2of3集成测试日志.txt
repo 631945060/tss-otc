@@ -1,0 +1,4 @@
+=== RUN   TestKeygenThenTwoPartySign
+--- PASS: TestKeygenThenTwoPartySign (1.18s)
+PASS
+ok  	mpc-wallet-demo/internal/tssprotocol	1.929s

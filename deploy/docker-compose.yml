@@ -1,0 +1,7 @@
+services:
+  wallet-api:
+    build: ..
+    ports:
+      - "8080:8080"
+    environment:
+      HTTP_ADDR: ":8080"
