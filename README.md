@@ -1,78 +1,78 @@
-# MPC 钱包系统交付物
+# MPC Wallet System
 
-本目录是论文配套的可运行演示交付物。它实现 RESTful 服务、会话审批绑定、7 张 MySQL 表定义、Docker 部署文件、分层接口测试、3节点DKG/2节点门限签名集成测试和 100 并发会话创建压力测试。
+This repository is the runnable delivery for the TSS wallet thesis project. It provides a Gin REST API, an administration console, MySQL schema migrations, Redis Stream consumers, and 2-of-3 threshold-signature parameter and protocol tests.
 
-## 运行
+## Run locally
 
-```bash
-go test ./... -count=1 -v
-go run . httpServer
-```
-
-启动后访问 `http://127.0.0.1:8080` 可打开随服务提供的管理后台。前端位于 `web/`，无需单独安装 Node.js 依赖；可以创建签名会话，并以两个不同节点完成审批，随后在交易与审计页面查看联动结果。
-
-### MySQL and Redis runtime
-
-复制 `.env.example` 并设置 `MYSQL_DSN` 后，启动入口会在监听 HTTP 前执行 `databases/migrations` 下的版本化迁移。设置 `REDIS_ADDR` 后，签名会话的创建、审批和取消事件会写入 Redis Stream，`consumers/` 中的消费者负责异步消费与确认。
-
-命令结构与参考项目保持一致：
+The service starts without MySQL or Redis in demonstration mode. It retains wallet, transaction, signing-session, approval, participant, heartbeat, reshare-request, audit, and metrics APIs in memory.
 
 ```bash
-go run . httpServer       # HTTP API 与后台页面
-go run . startConsumers   # Redis Stream 消费者
-go run . cron             # 定时任务进程
+go test ./... -count=1
+go run ./apps/tss-wallet-service/cmd httpServer
 ```
 
-完整依赖环境可通过以下命令启动：
+Open `http://127.0.0.1:8080` to use the administration console. The frontend is a static application in `web/admin-console`; no Node.js installation is required.
+
+To enable persistent schema storage and asynchronous session events, configure `MYSQL_DSN` and `REDIS_ADDR` in `.env.example` and run the corresponding processes:
 
 ```bash
-docker compose -f deploy/docker-compose.yml up --build
+go run ./apps/tss-wallet-service/cmd httpServer
+go run ./apps/tss-wallet-service/cmd startConsumers
+go run ./apps/tss-wallet-service/cmd cron
 ```
 
-## 项目结构
+With Docker available, start the full dependency set with:
 
-- `routes/`：Gin 路由注册与 `/api/v1` 业务分组。
-- `app/tss_wallet/api/controllers/`：请求绑定和统一响应出口。
-- `app/tss_wallet/api/services/`：钱包、交易、签名会话、节点与审计的业务状态机。
-- `app/tss_wallet/api/requests/`：接口请求对象与参数校验规则。
-- `models/`：钱包、参与方、交易、会话、密钥版本和审计记录模型。
-- `common/`：与管理项目一致的 `code`、`message`、`data` 响应结构。
+```bash
+docker compose -f deployments/docker/docker-compose.yml up --build
+```
 
-## API 概览
+## Directory layout
 
-| 路由 | 方法 | 作用 |
+```text
+apps/tss-wallet-service/
+  cmd/                         executable entry point and Cobra commands
+  internal/
+    application/               wallet and signing-session use cases
+    domain/                    domain data models
+    transport/httpapi/         Gin controllers, routes, request/response DTOs
+    transport/                 HTTP server lifecycle
+    worker/consumers/          Redis Stream event consumer
+    worker/cron/               scheduled operational task runner
+    infrastructure/redis/      service-specific Redis event publisher
+    config/                    environment configuration
+internal/database/
+  mysql/                       MySQL connection pool
+  redis/                       shared Redis client setup
+migrations/wallet/             versioned MySQL schema and migration runner
+signer/tss-common/             threshold-signature configuration and protocol tests
+api/openapi/                   API specification
+web/admin-console/             static administration console
+deployments/docker/            Dockerfile and Compose environment
+docs/test-reports/             test cases and historical run logs
+```
+
+## API overview
+
+| Route | Method | Purpose |
 |---|---|---|
-| `/api/v1/health` | GET | 健康检查与门限参数 |
-| `/api/v1/wallets` | GET/POST | 查询或创建钱包元数据 |
-| `/api/v1/wallets/:id/addresses` | GET | 查询地址 |
-| `/api/v1/wallets/:id/balance` | GET | 查询演示余额 |
-| `/api/v1/transactions` | GET/POST | 查询或发起转账 |
-| `/api/v1/transactions/:id` | GET | 查询交易详情 |
-| `/api/v1/sign-sessions` | GET/POST | 查询或创建签名会话 |
-| `/api/v1/sign-sessions/:id/approve` | POST | 节点审批会话 |
-| `/api/v1/sign-sessions/:id/cancel` | POST | 取消会话 |
-| `/api/v1/participants` | GET | 查询参与方节点 |
-| `/api/v1/participants/:id/refresh` | POST | 发起重新共享请求 |
-| `/api/v1/nodes/heartbeat` | POST | 上报节点心跳 |
-| `/api/v1/audit-logs` | GET | 查询审计日志 |
-| `/api/v1/system/metrics` | GET | 查询系统指标 |
+| `/api/v1/health` | GET | Service health and threshold parameters |
+| `/api/v1/wallets` | GET/POST | List or create wallet metadata |
+| `/api/v1/wallets/:id/addresses` | GET | Get wallet addresses |
+| `/api/v1/wallets/:id/balance` | GET | Get demonstration balance |
+| `/api/v1/transactions` | GET/POST | List or create transfers |
+| `/api/v1/transactions/:id` | GET | Get transfer details |
+| `/api/v1/sign-sessions` | GET/POST | List or create signing sessions |
+| `/api/v1/sign-sessions/:id/approve` | POST | Approve a session as a participant |
+| `/api/v1/sign-sessions/:id/cancel` | POST | Cancel a signing session |
+| `/api/v1/participants` | GET | List participant nodes |
+| `/api/v1/participants/:id/refresh` | POST | Create a reshare request |
+| `/api/v1/nodes/heartbeat` | POST | Report participant heartbeat |
+| `/api/v1/audit-logs` | GET | Read audit entries |
+| `/api/v1/system/metrics` | GET | Read operational metrics |
 
-## 门限参数与协议边界
+## Threshold-signature boundary
 
-`go.mod` 固定使用 `github.com/bnb-chain/tss-lib v1.5.0`。`internal/tssconfig/config.go` 将 3 个参与方和库参数 `threshold=1` 映射为 2-of-3 策略：该参数为多项式阶数，所需协作参与方数为 `threshold + 1`。
+`go.mod` pins `github.com/bnb-chain/tss-lib v1.5.0`. `signer/tss-common/parameters` verifies that three participants with library parameter `threshold=1` implement a 2-of-3 signing policy: the library threshold is the polynomial degree, so `threshold + 1` participants are required.
 
-库路径为 `ecdsa/keygen`、`ecdsa/signing` 和 `ecdsa/resharing`。门限签名按库的多轮 `LocalParty` 消息状态机执行，协调器只转发经认证的协议消息并收集最终输出，不能将两个独立 ECDSA 签名简单相加。`resharing` 用于重新分配参与方分片；本演示不将其表述为独立的 proactive refresh 接口。
-
-## 交付结构
-
-- `main.go`：进程入口，加载 `cmd` 注册的命令
-- `cmd/http_server.go`：HTTP API 与管理后台进程
-- `cmd/start_consumer.go`：Redis Stream 消费者进程
-- `cmd/cron.go`：定时任务进程
-- `internal/tssconfig`：`tss.NewParameters` 的 2-of-3 参数核验
-- `databases/migrations`：版本化 MySQL 表迁移
-- `core/httpserver`、`core/sql`：HTTP 与 SQL 连接池基础设施
-- `tools/redis`：Redis 客户端和 Stream 事件发布器
-- `consumers`：Redis Stream 会话事件消费者
-- `deploy/docker-compose.yml` 与 `Dockerfile`：部署入口
-- `测试报告.md`：20 条可追溯用例和并发测试范围
+The protocol tests use the library's `ecdsa/keygen` and `ecdsa/signing` message state machines. The API service demonstrates session orchestration and approval rules; it does not persist private key shares. MySQL stores only share references and fingerprints.
