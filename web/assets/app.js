@@ -60,7 +60,7 @@ async function render() {
   title.textContent = pageNames[chosen];
   document.querySelectorAll(".nav a").forEach((link) => link.classList.toggle("active", link.dataset.page === chosen));
   content.innerHTML = `<div class="panel"><div class="empty">Loading ${pageNames[chosen].toLowerCase()}...</div></div>`;
-  try { content.innerHTML = await renders[chosen](); setApiState(true); bindPageActions(chosen); } catch (error) { setApiState(false); content.innerHTML = `<section class="panel"><div class="panel-body"><div class="callout">Could not load data: ${esc(error.message)}. Start the service with <span class="code">go run ./cmd/server</span>.</div></div></section>`; }
+  try { content.innerHTML = await renders[chosen](); setApiState(true); bindPageActions(chosen); } catch (error) { setApiState(false); content.innerHTML = `<section class="panel"><div class="panel-body"><div class="callout">Could not load data: ${esc(error.message)}. Start the service with <span class="code">go run . httpServer</span>.</div></div></section>`; }
 }
 
 function bindPageActions(page) {

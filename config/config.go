@@ -19,7 +19,6 @@ type Config struct {
 	RedisAddr         string
 	RedisPassword     string
 	RedisDB           int
-	RunConsumers      bool
 }
 
 func Load() Config {
@@ -33,7 +32,6 @@ func Load() Config {
 		RedisAddr:         strings.TrimSpace(os.Getenv("REDIS_ADDR")),
 		RedisPassword:     os.Getenv("REDIS_PASSWORD"),
 		RedisDB:           envInt("REDIS_DB", 0),
-		RunConsumers:      envBool("RUN_CONSUMERS", true),
 	}
 }
 
@@ -45,13 +43,6 @@ func env(key, fallback string) string {
 }
 func envInt(key string, fallback int) int {
 	value, err := strconv.Atoi(strings.TrimSpace(os.Getenv(key)))
-	if err == nil {
-		return value
-	}
-	return fallback
-}
-func envBool(key string, fallback bool) bool {
-	value, err := strconv.ParseBool(strings.TrimSpace(os.Getenv(key)))
 	if err == nil {
 		return value
 	}

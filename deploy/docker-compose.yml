@@ -36,10 +36,19 @@ services:
       MYSQL_DSN: "wallet:wallet@tcp(mysql:3306)/tss_wallet?charset=utf8mb4&parseTime=true&loc=UTC"
       REDIS_ADDR: redis:6379
       REDIS_DB: "0"
-      RUN_CONSUMERS: "true"
     depends_on:
       mysql:
         condition: service_healthy
+      redis:
+        condition: service_healthy
+
+  wallet-consumers:
+    build: ..
+    command: ["startConsumers"]
+    environment:
+      REDIS_ADDR: redis:6379
+      REDIS_DB: "0"
+    depends_on:
       redis:
         condition: service_healthy
 

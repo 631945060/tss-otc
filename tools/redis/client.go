@@ -14,6 +14,7 @@ type Options struct {
 	DB       int
 }
 
+// Open returns the shared Redis client used by HTTP publishers and consumers.
 func Open(ctx context.Context, options Options) (*goredis.Client, error) {
 	if options.Addr == "" {
 		return nil, nil

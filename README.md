@@ -6,7 +6,7 @@
 
 ```bash
 go test ./... -count=1 -v
-go run ./cmd/server
+go run . httpServer
 ```
 
 启动后访问 `http://127.0.0.1:8080` 可打开随服务提供的管理后台。前端位于 `web/`，无需单独安装 Node.js 依赖；可以创建签名会话，并以两个不同节点完成审批，随后在交易与审计页面查看联动结果。
@@ -14,6 +14,14 @@ go run ./cmd/server
 ### MySQL and Redis runtime
 
 复制 `.env.example` 并设置 `MYSQL_DSN` 后，启动入口会在监听 HTTP 前执行 `databases/migrations` 下的版本化迁移。设置 `REDIS_ADDR` 后，签名会话的创建、审批和取消事件会写入 Redis Stream，`consumers/` 中的消费者负责异步消费与确认。
+
+命令结构与参考项目保持一致：
+
+```bash
+go run . httpServer       # HTTP API 与后台页面
+go run . startConsumers   # Redis Stream 消费者
+go run . cron             # 定时任务进程
+```
 
 完整依赖环境可通过以下命令启动：
 
@@ -57,10 +65,14 @@ docker compose -f deploy/docker-compose.yml up --build
 
 ## 交付结构
 
-- `cmd/server`：配置加载、MySQL 迁移、Redis 消费者和 HTTP 服务组装入口
+- `main.go`：进程入口，加载 `cmd` 注册的命令
+- `cmd/http_server.go`：HTTP API 与管理后台进程
+- `cmd/start_consumer.go`：Redis Stream 消费者进程
+- `cmd/cron.go`：定时任务进程
 - `internal/tssconfig`：`tss.NewParameters` 的 2-of-3 参数核验
 - `databases/migrations`：版本化 MySQL 表迁移
-- `core/httpserver`、`core/sql`、`core/redis`：HTTP、SQL 连接池和 Redis 客户端基础设施
+- `core/httpserver`、`core/sql`：HTTP 与 SQL 连接池基础设施
+- `tools/redis`：Redis 客户端和 Stream 事件发布器
 - `consumers`：Redis Stream 会话事件消费者
 - `deploy/docker-compose.yml` 与 `Dockerfile`：部署入口
 - `测试报告.md`：20 条可追溯用例和并发测试范围

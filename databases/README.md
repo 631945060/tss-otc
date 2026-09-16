@@ -1,6 +1,6 @@
 # Database migrations
 
-`migrations/` is the schema source of truth. On service startup, `cmd/server`
+`migrations/` is the schema source of truth. On `httpServer` startup, `cmd/http_server.go`
 opens MySQL when `MYSQL_DSN` is configured and applies each `*.up.sql` file once,
 recording its file name in `schema_migrations`.
 
