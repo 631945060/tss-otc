@@ -3,13 +3,14 @@ package domain
 import "time"
 
 type Wallet struct {
-	ID        string    `json:"id"`
-	PublicKey string    `json:"public_key"`
-	Address   string    `json:"address"`
-	Network   string    `json:"network"`
-	Status    string    `json:"status"`
-	CreatedAt time.Time `json:"created_at"`
-	UpdatedAt time.Time `json:"updated_at"`
+	ID         string    `json:"id"`
+	PublicKey  string    `json:"public_key"`
+	Address    string    `json:"address"`
+	Network    string    `json:"network"`
+	Status     string    `json:"status"`
+	CreatedAt  time.Time `json:"created_at"`
+	UpdatedAt  time.Time `json:"updated_at"`
+	SignerMode string    `json:"signer_mode"`
 }
 
 type Participant struct {
@@ -23,31 +24,35 @@ type Participant struct {
 }
 
 type Transaction struct {
-	ID          string    `json:"id"`
-	WalletID    string    `json:"wallet_id"`
-	FromAddress string    `json:"from_address"`
-	ToAddress   string    `json:"to_address"`
-	Amount      string    `json:"amount"`
-	Fee         string    `json:"fee"`
-	Digest      string    `json:"digest"`
-	SessionID   string    `json:"session_id,omitempty"`
-	TxHash      string    `json:"tx_hash,omitempty"`
-	Status      string    `json:"status"`
-	CreatedAt   time.Time `json:"created_at"`
-	UpdatedAt   time.Time `json:"updated_at"`
+	ID                string    `json:"id"`
+	WalletID          string    `json:"wallet_id"`
+	FromAddress       string    `json:"from_address"`
+	ToAddress         string    `json:"to_address"`
+	Amount            string    `json:"amount"`
+	Fee               string    `json:"fee"`
+	Digest            string    `json:"digest"`
+	SessionID         string    `json:"session_id,omitempty"`
+	TxHash            string    `json:"tx_hash,omitempty"`
+	Signature         string    `json:"signature,omitempty"`
+	SignatureVerified bool      `json:"signature_verified,omitempty"`
+	Status            string    `json:"status"`
+	CreatedAt         time.Time `json:"created_at"`
+	UpdatedAt         time.Time `json:"updated_at"`
 }
 
 type SignSession struct {
-	ID            string     `json:"id"`
-	WalletID      string     `json:"wallet_id"`
-	TransactionID string     `json:"transaction_id,omitempty"`
-	Digest        string     `json:"digest"`
-	Threshold     int        `json:"threshold"`
-	Status        string     `json:"status"`
-	Participants  []string   `json:"participants"`
-	Approvers     []string   `json:"approvers"`
-	CreatedAt     time.Time  `json:"created_at"`
-	FinishedAt    *time.Time `json:"finished_at,omitempty"`
+	ID                string     `json:"id"`
+	WalletID          string     `json:"wallet_id"`
+	TransactionID     string     `json:"transaction_id,omitempty"`
+	Digest            string     `json:"digest"`
+	Threshold         int        `json:"threshold"`
+	Status            string     `json:"status"`
+	Participants      []string   `json:"participants"`
+	Approvers         []string   `json:"approvers"`
+	CreatedAt         time.Time  `json:"created_at"`
+	FinishedAt        *time.Time `json:"finished_at,omitempty"`
+	Signature         string     `json:"signature,omitempty"`
+	SignatureVerified bool       `json:"signature_verified,omitempty"`
 }
 
 type KeyEpoch struct {

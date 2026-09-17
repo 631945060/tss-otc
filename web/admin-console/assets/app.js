@@ -4,6 +4,7 @@ const title = document.querySelector("#page-title");
 const state = document.querySelector("#api-state");
 const toast = document.querySelector("#toast");
 let toastTimer;
+let activeWalletId = "";
 
 const pageNames = { overview: "Overview", nodes: "Node management", sessions: "Signing sessions", transactions: "Transactions", audit: "Audit log" };
 
@@ -23,6 +24,7 @@ function setApiState(ok) { state.textContent = ok ? "API connected" : "API unava
 async function overview() {
   const [metrics, walletData, sessionData] = await Promise.all([api("/system/metrics"), api("/wallets"), api("/sign-sessions")]);
   const wallet = walletData.list[0];
+  activeWalletId = wallet?.id || "";
   const sessions = sessionData.list.slice(0, 5);
   return `<div class="summary-grid">
     <article class="stat"><span class="stat-label">Online signing nodes</span><span class="stat-value">${metrics.online_nodes}</span><span class="stat-hint">All committee members reachable</span></article>
@@ -40,13 +42,14 @@ async function nodes() {
 }
 
 async function sessions() {
-  const data = await api("/sign-sessions");
-  return `<section class="panel"><div class="panel-head"><h2>Create signing session</h2><span class="muted">Create a session for the test wallet and message digest.</span></div><div class="panel-body"><form id="create-session" class="form-row"><label>Transaction digest<input required name="digest" maxlength="160" placeholder="e.g. 4d7f..." /></label><label>Wallet ID<input readonly value="wallet-demo-001" /></label><button class="button" type="submit">Create session</button></form></div></section><section class="panel"><div class="panel-head"><h2>Signing session queue</h2><span class="muted">Two distinct participants are required.</span></div><div class="table-wrap"><table><thead><tr><th>Session ID</th><th>Digest</th><th>Approvers</th><th>Status</th><th>Created</th><th></th></tr></thead><tbody>${data.list.length ? data.list.map((item) => `<tr><td class="code">${esc(item.id)}</td><td class="code">${esc(item.digest)}</td><td>${item.approvers.length ? esc(item.approvers.join(", ")) : "No approvals"}</td><td>${status(item.status)} <span class="muted">${item.approvers.length}/2</span></td><td>${formatTime(item.created_at)}</td><td>${["pending", "signing"].includes(item.status) ? `<button class="button secondary small approve" data-id="${esc(item.id)}">Approve</button>` : ""}</td></tr>`).join("") : `<tr><td colspan="6">${empty("No signing session has been created.")}</td></tr>`}</tbody></table></div></section>`;
+  const [data, wallets] = await Promise.all([api("/sign-sessions"), api("/wallets")]);
+  activeWalletId = wallets.list[0]?.id || "";
+  return `<section class="panel"><div class="panel-head"><h2>Create signing session</h2><span class="muted">Create a session through the active TSS wallet.</span></div><div class="panel-body"><form id="create-session" class="form-row"><label>Transaction digest<input required name="digest" maxlength="160" placeholder="e.g. 4d7f..." /></label><label>Wallet ID<select required name="wallet_id">${wallets.list.map((wallet) => `<option value="${esc(wallet.id)}">${esc(wallet.id)} (${esc(wallet.network)})</option>`).join("")}</select></label><button class="button" type="submit">Create session</button></form></div></section><section class="panel"><div class="panel-head"><h2>Signing session queue</h2><span class="muted">Two distinct participants are required.</span></div><div class="table-wrap"><table><thead><tr><th>Session ID</th><th>Digest</th><th>Approvers</th><th>Status</th><th>Verification</th><th>Created</th><th></th></tr></thead><tbody>${data.list.length ? data.list.map((item) => `<tr><td class="code">${esc(item.id)}</td><td class="code">${esc(item.digest)}</td><td>${item.approvers.length ? esc(item.approvers.join(", ")) : "No approvals"}</td><td>${status(item.status)} <span class="muted">${item.approvers.length}/2</span></td><td>${item.signature_verified ? `<span class="status success">ECDSA verified</span>` : "-"}</td><td>${formatTime(item.created_at)}</td><td>${["pending", "signing"].includes(item.status) ? `<button class="button secondary small approve" data-id="${esc(item.id)}">Approve</button>` : ""}</td></tr>`).join("") : `<tr><td colspan="7">${empty("No signing session has been created.")}</td></tr>`}</tbody></table></div></section>`;
 }
 
 async function transactions() {
   const data = await api("/transactions");
-  return `<section class="panel"><div class="panel-head"><h2>Transactions</h2><span class="muted">Transfer records bound to threshold signing sessions.</span></div><div class="table-wrap"><table><thead><tr><th>Transaction ID</th><th>Recipient</th><th>Amount</th><th>Session</th><th>Status</th><th>Created</th></tr></thead><tbody>${data.list.length ? data.list.map((item) => `<tr><td class="code">${esc(item.id)}</td><td class="code">${esc(item.to_address)}</td><td>${esc(item.amount)}</td><td class="code">${esc(item.session_id || "-")}</td><td>${status(item.status)}</td><td>${formatTime(item.created_at)}</td></tr>`).join("") : `<tr><td colspan="6">${empty("No transaction has been created yet.")}</td></tr>`}</tbody></table></div></section>`;
+  return `<section class="panel"><div class="panel-head"><h2>Create transaction</h2><span class="muted">The digest is the exact message that will be signed.</span></div><div class="panel-body"><form id="create-transaction" class="form-row"><label>Recipient<input required name="to_address" maxlength="160" placeholder="destination address" /></label><label>Amount<input required name="amount" maxlength="64" placeholder="1.00000000" /></label><label>Digest<input required name="digest" maxlength="160" placeholder="hex digest or message" /></label><button class="button" type="submit">Create</button></form></div></section><section class="panel"><div class="panel-head"><h2>Transactions</h2><span class="muted">Transfer records bound to threshold signing sessions.</span></div><div class="table-wrap"><table><thead><tr><th>Transaction ID</th><th>Recipient</th><th>Amount</th><th>Session</th><th>Status</th><th>Signature</th><th>Created</th></tr></thead><tbody>${data.list.length ? data.list.map((item) => `<tr><td class="code">${esc(item.id)}</td><td class="code">${esc(item.to_address)}</td><td>${esc(item.amount)}</td><td class="code">${esc(item.session_id || "-")}</td><td>${status(item.status)}</td><td>${item.signature_verified ? `<span class="status success">verified</span>` : "-"}</td><td>${formatTime(item.created_at)}</td></tr>`).join("") : `<tr><td colspan="7">${empty("No transaction has been created yet.")}</td></tr>`}</tbody></table></div></section>`;
 }
 
 async function audit() {
@@ -64,11 +67,18 @@ async function render() {
 }
 
 function bindPageActions(page) {
+  if (page === "transactions") {
+    document.querySelector("#create-transaction").addEventListener("submit", async (event) => {
+      event.preventDefault(); const form = new FormData(event.currentTarget);
+      try { await api("/transactions", { method: "POST", body: JSON.stringify({ wallet_id: activeWalletId || "wallet-demo-001", to_address: form.get("to_address"), amount: form.get("amount"), digest: form.get("digest") }) }); showToast("Transaction created."); render(); } catch (error) { showToast(error.message); }
+    });
+    return;
+  }
   if (page !== "sessions") return;
   document.querySelector("#create-session").addEventListener("submit", async (event) => {
     event.preventDefault();
     const form = new FormData(event.currentTarget);
-    try { await api("/sign-sessions", { method: "POST", body: JSON.stringify({ wallet_id: "wallet-demo-001", digest: form.get("digest") }) }); showToast("Signing session created."); render(); } catch (error) { showToast(error.message); }
+    try { await api("/sign-sessions", { method: "POST", body: JSON.stringify({ wallet_id: form.get("wallet_id"), digest: form.get("digest") }) }); showToast("Signing session created."); render(); } catch (error) { showToast(error.message); }
   });
   document.querySelectorAll(".approve").forEach((button) => button.addEventListener("click", async () => {
     const node = window.prompt("Approve as node-1, node-2, or node-3", "node-1");

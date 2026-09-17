@@ -1,4 +1,10 @@
 === RUN   TestKeygenThenTwoPartySign
---- PASS: TestKeygenThenTwoPartySign (1.18s)
+=== RUN   TestKeygenThenTwoPartySign/node1+node2
+=== RUN   TestKeygenThenTwoPartySign/node1+node3
+=== RUN   TestKeygenThenTwoPartySign/node2+node3
+--- PASS: TestKeygenThenTwoPartySign (1.42s)
+    --- PASS: TestKeygenThenTwoPartySign/node1+node2 (0.12s)
+    --- PASS: TestKeygenThenTwoPartySign/node1+node3 (0.12s)
+    --- PASS: TestKeygenThenTwoPartySign/node2+node3 (0.12s)
 PASS
-ok  	mpc-wallet-demo/internal/tssprotocol	1.929s
+ok  	mpc-wallet-demo/signer/tss-common/protocol	1.578s

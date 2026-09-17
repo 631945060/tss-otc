@@ -2,6 +2,8 @@ package application
 
 import (
 	"context"
+	"crypto/ecdsa"
+	"crypto/rand"
 	"crypto/sha256"
 	"encoding/hex"
 	"errors"
@@ -9,6 +11,8 @@ import (
 	"sort"
 	"sync"
 	"time"
+
+	"github.com/bnb-chain/tss-lib/tss"
 
 	"mpc-wallet-demo/apps/tss-wallet-service/internal/domain"
 )
@@ -30,12 +34,17 @@ type TSSWalletService struct {
 	sessions     map[string]domain.SignSession
 	epochs       []domain.KeyEpoch
 	audits       []domain.AuditLog
+	keys         map[string]*ecdsa.PrivateKey
 	publisher    SessionEventPublisher
 }
 
 func NewTSSWalletService(publishers ...SessionEventPublisher) *TSSWalletService {
 	now := time.Now().UTC()
-	wallet := domain.Wallet{ID: "wallet-demo-001", PublicKey: "tss-demo-public-key", Address: "demo-address", Network: "testnet", Status: "active", CreatedAt: now, UpdatedAt: now}
+	key, err := ecdsa.GenerateKey(tss.S256(), rand.Reader)
+	if err != nil {
+		panic(err)
+	}
+	wallet := domain.Wallet{ID: "wallet-demo-001", PublicKey: publicKeyHex(&key.PublicKey), Address: "demo-address", Network: "testnet", Status: "active", SignerMode: "local-ecdsa", CreatedAt: now, UpdatedAt: now}
 	participants := map[string]domain.Participant{}
 	for index := 1; index <= 3; index++ {
 		id := fmt.Sprintf("node-%d", index)
@@ -47,6 +56,7 @@ func NewTSSWalletService(publishers ...SessionEventPublisher) *TSSWalletService 
 		transactions: make(map[string]domain.Transaction),
 		sessions:     make(map[string]domain.SignSession),
 		epochs:       []domain.KeyEpoch{{WalletID: wallet.ID, Epoch: 1, Operation: "dkg", PublicKeyUnchanged: false, Status: "active", CreatedAt: now}},
+		keys:         map[string]*ecdsa.PrivateKey{wallet.ID: key},
 	}
 	if len(publishers) > 0 {
 		service.publisher = publishers[0]
@@ -71,9 +81,14 @@ func (s *TSSWalletService) CreateWallet(input CreateWalletInput) domain.Wallet {
 	now := time.Now().UTC()
 	network := defaultValue(input.Network, "testnet")
 	id := s.nextID("wallet", now)
+	key, err := ecdsa.GenerateKey(tss.S256(), rand.Reader)
+	if err != nil {
+		return domain.Wallet{}
+	}
 	fingerprint := sha256.Sum256([]byte(id + network))
-	wallet := domain.Wallet{ID: id, PublicKey: "dkg-public-" + hex.EncodeToString(fingerprint[:8]), Address: "tss-" + hex.EncodeToString(fingerprint[8:14]), Network: network, Status: "active", CreatedAt: now, UpdatedAt: now}
+	wallet := domain.Wallet{ID: id, PublicKey: publicKeyHex(&key.PublicKey), Address: "tss-" + hex.EncodeToString(fingerprint[8:14]), Network: network, Status: "active", SignerMode: "local-ecdsa", CreatedAt: now, UpdatedAt: now}
 	s.wallets[id] = wallet
+	s.keys[id] = key
 	s.epochs = append(s.epochs, domain.KeyEpoch{WalletID: id, Epoch: 1, Operation: "dkg", PublicKeyUnchanged: false, Status: "active", CreatedAt: now})
 	s.appendAudit("operator", "create_wallet", "success", "Created wallet metadata and DKG key epoch", "", now)
 	return wallet
@@ -212,11 +227,25 @@ func (s *TSSWalletService) ApproveSession(id, nodeID string) (domain.SignSession
 	session.Status = "signing"
 	s.appendAudit(nodeID, "approve_sign_session", "success", "Approved signing session", session.ID, now)
 	if len(session.Approvers) >= session.Threshold {
+		key := s.keys[session.WalletID]
+		if key == nil {
+			return domain.SignSession{}, errors.New("signer key unavailable")
+		}
+		digest := digestBytes(session.Digest)
+		r, sigS, err := ecdsa.Sign(rand.Reader, key, digest)
+		if err != nil {
+			return domain.SignSession{}, fmt.Errorf("sign digest: %w", err)
+		}
+		signature := hex.EncodeToString(r.FillBytes(make([]byte, 32))) + hex.EncodeToString(sigS.FillBytes(make([]byte, 32)))
+		if !ecdsa.Verify(&key.PublicKey, digest, r, sigS) {
+			return domain.SignSession{}, errors.New("signature verification failed")
+		}
 		session.Status, session.FinishedAt = "success", &now
+		session.Signature, session.SignatureVerified = signature, true
 		s.appendAudit("coordinator", "complete_sign_session", "success", "Approval threshold reached; protocol output accepted", session.ID, now)
 		if session.TransactionID != "" {
 			tx := s.transactions[session.TransactionID]
-			tx.Status, tx.TxHash, tx.UpdatedAt = "signed", demoHash(session.ID+session.Digest), now
+			tx.Status, tx.TxHash, tx.Signature, tx.SignatureVerified, tx.UpdatedAt = "signed", demoHash(signature), signature, true, now
 			s.transactions[tx.ID] = tx
 		}
 	}
@@ -312,6 +341,23 @@ func (s *TSSWalletService) Metrics() map[string]any {
 	return map[string]any{"wallet_count": len(s.wallets), "online_nodes": online, "active_sessions": len(s.sessions), "completed_sessions": completed, "transactions": len(s.transactions), "threshold": "2-of-3"}
 }
 
+func (s *TSSWalletService) ListKeyEpochs() []domain.KeyEpoch {
+	s.mu.RLock()
+	defer s.mu.RUnlock()
+	return append([]domain.KeyEpoch(nil), s.epochs...)
+}
+
+func (s *TSSWalletService) KeyEpoch(epochNo int) (domain.KeyEpoch, error) {
+	s.mu.RLock()
+	defer s.mu.RUnlock()
+	for _, epoch := range s.epochs {
+		if epoch.Epoch == epochNo {
+			return epoch, nil
+		}
+	}
+	return domain.KeyEpoch{}, ErrNotFound
+}
+
 func (s *TSSWalletService) appendAudit(actor, action, result, detail, sessionID string, now time.Time) {
 	s.sequence++
 	s.audits = append(s.audits, domain.AuditLog{ID: fmt.Sprintf("audit-%06d", s.sequence), Actor: actor, Action: action, Result: result, Detail: detail, SessionID: sessionID, CreatedAt: now})
@@ -344,4 +390,16 @@ func defaultValue(value, fallback string) string {
 func demoHash(value string) string {
 	sum := sha256.Sum256([]byte(value))
 	return hex.EncodeToString(sum[:])
+}
+
+func digestBytes(value string) []byte {
+	if b, err := hex.DecodeString(value); err == nil && len(b) == 32 {
+		return b
+	}
+	sum := sha256.Sum256([]byte(value))
+	return sum[:]
+}
+
+func publicKeyHex(pub *ecdsa.PublicKey) string {
+	return hex.EncodeToString(append(pub.X.FillBytes(make([]byte, 32)), pub.Y.FillBytes(make([]byte, 32))...))
 }

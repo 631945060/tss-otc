@@ -4,3 +4,6 @@
 
 # Editor and operating-system files
 .DS_Store
+
+# IDE
+.idea/

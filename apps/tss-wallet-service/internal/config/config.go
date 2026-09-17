@@ -19,6 +19,7 @@ type Config struct {
 	RedisAddr         string
 	RedisPassword     string
 	RedisDB           int
+	SignerMode        string
 }
 
 func Load() Config {
@@ -32,6 +33,7 @@ func Load() Config {
 		RedisAddr:         strings.TrimSpace(os.Getenv("REDIS_ADDR")),
 		RedisPassword:     os.Getenv("REDIS_PASSWORD"),
 		RedisDB:           envInt("REDIS_DB", 0),
+		SignerMode:        env("SIGNER_MODE", "local"),
 	}
 }
 

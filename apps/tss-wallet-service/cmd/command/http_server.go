@@ -2,6 +2,7 @@ package command
 
 import (
 	"context"
+	"fmt"
 	"log"
 
 	"github.com/spf13/cobra"
@@ -26,6 +27,9 @@ func init() { rootCmd.AddCommand(httpServerCmd) }
 
 func runHTTPServer(ctx context.Context) error {
 	cfg := config.Load()
+	if cfg.SignerMode == "production" {
+		return fmt.Errorf("SIGNER_MODE=production requires an external distributed signer; local key storage is disabled")
+	}
 	db, err := mysql.Open(ctx, mysql.Options{DSN: cfg.MySQLDSN, MaxOpenConns: cfg.MySQLMaxOpenConns, MaxIdleConns: cfg.MySQLMaxIdleConns})
 	if err != nil {
 		return err

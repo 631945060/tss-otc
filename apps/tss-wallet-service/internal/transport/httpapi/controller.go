@@ -2,6 +2,7 @@ package httpapi
 
 import (
 	"errors"
+	"strconv"
 
 	"github.com/gin-gonic/gin"
 
@@ -18,7 +19,7 @@ func NewTSSWalletController(service *application.TSSWalletService) *TSSWalletCon
 }
 
 func (c *TSSWalletController) Health(ctx *gin.Context) {
-	c.ResponseSuccess(ctx, gin.H{"status": "ok", "protocol": "tss-lib v1.5.0", "threshold": "2-of-3 (library threshold=1)"})
+	c.ResponseSuccess(ctx, gin.H{"status": "ok", "protocol": "tss-lib v1.5.0", "threshold": "2-of-3 (library threshold=1)", "signing": "real-ecdsa-verifiable"})
 }
 
 func (c *TSSWalletController) WalletList(ctx *gin.Context) {
@@ -123,6 +124,23 @@ func (c *TSSWalletController) SessionCancel(ctx *gin.Context) {
 		return
 	}
 	c.ResponseSuccess(ctx, data, "session cancelled")
+}
+
+func (c *TSSWalletController) KeyEpochList(ctx *gin.Context) {
+	c.ResponseSuccess(ctx, gin.H{"list": c.service.ListKeyEpochs()})
+}
+
+func (c *TSSWalletController) KeyEpochDetail(ctx *gin.Context) {
+	epochNo, err := strconv.Atoi(ctx.Param("id"))
+	if err != nil {
+		c.ResponseError(ctx, InvalidParamCode, "invalid epoch id")
+		return
+	}
+	data, err := c.service.KeyEpoch(epochNo)
+	if c.respondError(ctx, err) {
+		return
+	}
+	c.ResponseSuccess(ctx, data)
 }
 
 func (c *TSSWalletController) ParticipantList(ctx *gin.Context) {

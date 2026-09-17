@@ -1,20 +1,382 @@
-=== RUN   TestTwentyFunctionalChecks
---- PASS: TestTwentyFunctionalChecks (0.00s)
+?   	mpc-wallet-demo/apps/tss-wallet-service/cmd	[no test files]
+?   	mpc-wallet-demo/apps/tss-wallet-service/cmd/command	[no test files]
+=== RUN   TestSessionLifecyclePublishesNonSensitiveEvent
+--- PASS: TestSessionLifecyclePublishesNonSensitiveEvent (0.00s)
+PASS
+ok  	mpc-wallet-demo/apps/tss-wallet-service/internal/application	0.228s
+?   	mpc-wallet-demo/apps/tss-wallet-service/internal/config	[no test files]
+?   	mpc-wallet-demo/apps/tss-wallet-service/internal/domain	[no test files]
+?   	mpc-wallet-demo/apps/tss-wallet-service/internal/infrastructure/redis	[no test files]
+?   	mpc-wallet-demo/apps/tss-wallet-service/internal/transport	[no test files]
 === RUN   TestConcurrentSessionCreation
+[GIN-debug] [WARNING] Running in "debug" mode. Switch to "release" mode in production.
+ - using env:	export GIN_MODE=release
+ - using code:	gin.SetMode(gin.ReleaseMode)
+
+[GIN-debug] GET    /api/v1/health            --> mpc-wallet-demo/apps/tss-wallet-service/internal/transport/httpapi.(*TSSWalletController).Health-fm (4 handlers)
+[GIN-debug] GET    /api/v1/wallets           --> mpc-wallet-demo/apps/tss-wallet-service/internal/transport/httpapi.(*TSSWalletController).WalletList-fm (4 handlers)
+[GIN-debug] POST   /api/v1/wallets           --> mpc-wallet-demo/apps/tss-wallet-service/internal/transport/httpapi.(*TSSWalletController).WalletCreate-fm (4 handlers)
+[GIN-debug] GET    /api/v1/wallets/:id       --> mpc-wallet-demo/apps/tss-wallet-service/internal/transport/httpapi.(*TSSWalletController).WalletDetail-fm (4 handlers)
+[GIN-debug] GET    /api/v1/wallets/:id/addresses --> mpc-wallet-demo/apps/tss-wallet-service/internal/transport/httpapi.(*TSSWalletController).WalletAddresses-fm (4 handlers)
+[GIN-debug] GET    /api/v1/wallets/:id/balance --> mpc-wallet-demo/apps/tss-wallet-service/internal/transport/httpapi.(*TSSWalletController).WalletBalance-fm (4 handlers)
+[GIN-debug] GET    /api/v1/transactions      --> mpc-wallet-demo/apps/tss-wallet-service/internal/transport/httpapi.(*TSSWalletController).TransactionList-fm (4 handlers)
+[GIN-debug] POST   /api/v1/transactions      --> mpc-wallet-demo/apps/tss-wallet-service/internal/transport/httpapi.(*TSSWalletController).TransactionCreate-fm (4 handlers)
+[GIN-debug] GET    /api/v1/transactions/:id  --> mpc-wallet-demo/apps/tss-wallet-service/internal/transport/httpapi.(*TSSWalletController).TransactionDetail-fm (4 handlers)
+[GIN-debug] GET    /api/v1/sign-sessions     --> mpc-wallet-demo/apps/tss-wallet-service/internal/transport/httpapi.(*TSSWalletController).SessionList-fm (4 handlers)
+[GIN-debug] POST   /api/v1/sign-sessions     --> mpc-wallet-demo/apps/tss-wallet-service/internal/transport/httpapi.(*TSSWalletController).SessionCreate-fm (4 handlers)
+[GIN-debug] GET    /api/v1/sign-sessions/:id --> mpc-wallet-demo/apps/tss-wallet-service/internal/transport/httpapi.(*TSSWalletController).SessionDetail-fm (4 handlers)
+[GIN-debug] POST   /api/v1/sign-sessions/:id/approve --> mpc-wallet-demo/apps/tss-wallet-service/internal/transport/httpapi.(*TSSWalletController).SessionApprove-fm (4 handlers)
+[GIN-debug] POST   /api/v1/sign-sessions/:id/cancel --> mpc-wallet-demo/apps/tss-wallet-service/internal/transport/httpapi.(*TSSWalletController).SessionCancel-fm (4 handlers)
+[GIN-debug] GET    /api/v1/participants      --> mpc-wallet-demo/apps/tss-wallet-service/internal/transport/httpapi.(*TSSWalletController).ParticipantList-fm (4 handlers)
+[GIN-debug] POST   /api/v1/participants/:id/refresh --> mpc-wallet-demo/apps/tss-wallet-service/internal/transport/httpapi.(*TSSWalletController).ParticipantRefresh-fm (4 handlers)
+[GIN-debug] GET    /api/v1/key-epochs        --> mpc-wallet-demo/apps/tss-wallet-service/internal/transport/httpapi.(*TSSWalletController).KeyEpochList-fm (4 handlers)
+[GIN-debug] GET    /api/v1/key-epochs/:id    --> mpc-wallet-demo/apps/tss-wallet-service/internal/transport/httpapi.(*TSSWalletController).KeyEpochDetail-fm (4 handlers)
+[GIN-debug] GET    /api/v1/audit-logs        --> mpc-wallet-demo/apps/tss-wallet-service/internal/transport/httpapi.(*TSSWalletController).AuditLogList-fm (4 handlers)
+[GIN-debug] POST   /api/v1/nodes/heartbeat   --> mpc-wallet-demo/apps/tss-wallet-service/internal/transport/httpapi.(*TSSWalletController).NodeHeartbeat-fm (4 handlers)
+[GIN-debug] GET    /api/v1/system/metrics    --> mpc-wallet-demo/apps/tss-wallet-service/internal/transport/httpapi.(*TSSWalletController).Metrics-fm (4 handlers)
+[GIN] 2026/09/17 - 14:16:54 | 200 |      641.75µs |       192.0.2.1 | POST     "/api/v1/sign-sessions"
+[GIN] 2026/09/17 - 14:16:54 | 200 |     486.625µs |       192.0.2.1 | POST     "/api/v1/sign-sessions"
+[GIN] 2026/09/17 - 14:16:54 | 200 |     682.833µs |       192.0.2.1 | POST     "/api/v1/sign-sessions"
+[GIN] 2026/09/17 - 14:16:54 | 200 |     643.208µs |       192.0.2.1 | POST     "/api/v1/sign-sessions"
+[GIN] 2026/09/17 - 14:16:54 | 200 |         657µs |       192.0.2.1 | POST     "/api/v1/sign-sessions"
+[GIN] 2026/09/17 - 14:16:54 | 200 |     693.334µs |       192.0.2.1 | POST     "/api/v1/sign-sessions"
+[GIN] 2026/09/17 - 14:16:54 | 200 |     599.625µs |       192.0.2.1 | POST     "/api/v1/sign-sessions"
+[GIN] 2026/09/17 - 14:16:54 | 200 |       692.5µs |       192.0.2.1 | POST     "/api/v1/sign-sessions"
+[GIN] 2026/09/17 - 14:16:54 | 200 |     605.834µs |       192.0.2.1 | POST     "/api/v1/sign-sessions"
+[GIN] 2026/09/17 - 14:16:54 | 200 |     731.125µs |       192.0.2.1 | POST     "/api/v1/sign-sessions"
 --- PASS: TestConcurrentSessionCreation (0.00s)
 === RUN   TestConcurrencyProfile
-PROFILE concurrency=10 p50=25.5µs p95=43.583µs p99=43.583µs throughput=68220.3 req/s failures=0 heap_delta=82816B
-PROFILE concurrency=25 p50=8.708µs p95=33µs p99=58.625µs throughput=205338.8 req/s failures=0 heap_delta=191832B
-PROFILE concurrency=50 p50=14.625µs p95=42.584µs p99=52.042µs throughput=293901.5 req/s failures=0 heap_delta=397784B
-PROFILE concurrency=100 p50=18.459µs p95=78.334µs p99=113.917µs throughput=296004.2 req/s failures=0 heap_delta=800456B
+[GIN-debug] [WARNING] Running in "debug" mode. Switch to "release" mode in production.
+ - using env:	export GIN_MODE=release
+ - using code:	gin.SetMode(gin.ReleaseMode)
+
+[GIN-debug] GET    /api/v1/health            --> mpc-wallet-demo/apps/tss-wallet-service/internal/transport/httpapi.(*TSSWalletController).Health-fm (4 handlers)
+[GIN-debug] GET    /api/v1/wallets           --> mpc-wallet-demo/apps/tss-wallet-service/internal/transport/httpapi.(*TSSWalletController).WalletList-fm (4 handlers)
+[GIN-debug] POST   /api/v1/wallets           --> mpc-wallet-demo/apps/tss-wallet-service/internal/transport/httpapi.(*TSSWalletController).WalletCreate-fm (4 handlers)
+[GIN-debug] GET    /api/v1/wallets/:id       --> mpc-wallet-demo/apps/tss-wallet-service/internal/transport/httpapi.(*TSSWalletController).WalletDetail-fm (4 handlers)
+[GIN-debug] GET    /api/v1/wallets/:id/addresses --> mpc-wallet-demo/apps/tss-wallet-service/internal/transport/httpapi.(*TSSWalletController).WalletAddresses-fm (4 handlers)
+[GIN-debug] GET    /api/v1/wallets/:id/balance --> mpc-wallet-demo/apps/tss-wallet-service/internal/transport/httpapi.(*TSSWalletController).WalletBalance-fm (4 handlers)
+[GIN-debug] GET    /api/v1/transactions      --> mpc-wallet-demo/apps/tss-wallet-service/internal/transport/httpapi.(*TSSWalletController).TransactionList-fm (4 handlers)
+[GIN-debug] POST   /api/v1/transactions      --> mpc-wallet-demo/apps/tss-wallet-service/internal/transport/httpapi.(*TSSWalletController).TransactionCreate-fm (4 handlers)
+[GIN-debug] GET    /api/v1/transactions/:id  --> mpc-wallet-demo/apps/tss-wallet-service/internal/transport/httpapi.(*TSSWalletController).TransactionDetail-fm (4 handlers)
+[GIN-debug] GET    /api/v1/sign-sessions     --> mpc-wallet-demo/apps/tss-wallet-service/internal/transport/httpapi.(*TSSWalletController).SessionList-fm (4 handlers)
+[GIN-debug] POST   /api/v1/sign-sessions     --> mpc-wallet-demo/apps/tss-wallet-service/internal/transport/httpapi.(*TSSWalletController).SessionCreate-fm (4 handlers)
+[GIN-debug] GET    /api/v1/sign-sessions/:id --> mpc-wallet-demo/apps/tss-wallet-service/internal/transport/httpapi.(*TSSWalletController).SessionDetail-fm (4 handlers)
+[GIN-debug] POST   /api/v1/sign-sessions/:id/approve --> mpc-wallet-demo/apps/tss-wallet-service/internal/transport/httpapi.(*TSSWalletController).SessionApprove-fm (4 handlers)
+[GIN-debug] POST   /api/v1/sign-sessions/:id/cancel --> mpc-wallet-demo/apps/tss-wallet-service/internal/transport/httpapi.(*TSSWalletController).SessionCancel-fm (4 handlers)
+[GIN-debug] GET    /api/v1/participants      --> mpc-wallet-demo/apps/tss-wallet-service/internal/transport/httpapi.(*TSSWalletController).ParticipantList-fm (4 handlers)
+[GIN-debug] POST   /api/v1/participants/:id/refresh --> mpc-wallet-demo/apps/tss-wallet-service/internal/transport/httpapi.(*TSSWalletController).ParticipantRefresh-fm (4 handlers)
+[GIN-debug] GET    /api/v1/key-epochs        --> mpc-wallet-demo/apps/tss-wallet-service/internal/transport/httpapi.(*TSSWalletController).KeyEpochList-fm (4 handlers)
+[GIN-debug] GET    /api/v1/key-epochs/:id    --> mpc-wallet-demo/apps/tss-wallet-service/internal/transport/httpapi.(*TSSWalletController).KeyEpochDetail-fm (4 handlers)
+[GIN-debug] GET    /api/v1/audit-logs        --> mpc-wallet-demo/apps/tss-wallet-service/internal/transport/httpapi.(*TSSWalletController).AuditLogList-fm (4 handlers)
+[GIN-debug] POST   /api/v1/nodes/heartbeat   --> mpc-wallet-demo/apps/tss-wallet-service/internal/transport/httpapi.(*TSSWalletController).NodeHeartbeat-fm (4 handlers)
+[GIN-debug] GET    /api/v1/system/metrics    --> mpc-wallet-demo/apps/tss-wallet-service/internal/transport/httpapi.(*TSSWalletController).Metrics-fm (4 handlers)
+=== RUN   TestConcurrencyProfile/concurrency_10
+[GIN] 2026/09/17 - 14:16:54 | 200 |       26.75µs |       192.0.2.1 | POST     "/api/v1/sign-sessions"
+[GIN] 2026/09/17 - 14:16:54 | 200 |      15.625µs |       192.0.2.1 | POST     "/api/v1/sign-sessions"
+[GIN] 2026/09/17 - 14:16:54 | 200 |      34.125µs |       192.0.2.1 | POST     "/api/v1/sign-sessions"
+[GIN] 2026/09/17 - 14:16:54 | 200 |      41.333µs |       192.0.2.1 | POST     "/api/v1/sign-sessions"
+[GIN] 2026/09/17 - 14:16:54 | 200 |      10.375µs |       192.0.2.1 | POST     "/api/v1/sign-sessions"
+[GIN] 2026/09/17 - 14:16:54 | 200 |      12.417µs |       192.0.2.1 | POST     "/api/v1/sign-sessions"
+[GIN] 2026/09/17 - 14:16:54 | 200 |      15.667µs |       192.0.2.1 | POST     "/api/v1/sign-sessions"
+[GIN] 2026/09/17 - 14:16:54 | 200 |      17.542µs |       192.0.2.1 | POST     "/api/v1/sign-sessions"
+[GIN] 2026/09/17 - 14:16:54 | 200 |      28.958µs |       192.0.2.1 | POST     "/api/v1/sign-sessions"
+[GIN] 2026/09/17 - 14:16:54 | 200 |        36.5µs |       192.0.2.1 | POST     "/api/v1/sign-sessions"
+    concurrency_test.go:100: PROFILE concurrency=10 p50=35.167µs p95=64.25µs p99=64.25µs throughput=79813.6 req/s failures=0 heap_delta=124184B
+=== RUN   TestConcurrencyProfile/concurrency_25
+[GIN] 2026/09/17 - 14:16:54 | 200 |      10.875µs |       192.0.2.1 | POST     "/api/v1/sign-sessions"
+[GIN] 2026/09/17 - 14:16:54 | 200 |       9.792µs |       192.0.2.1 | POST     "/api/v1/sign-sessions"
+[GIN] 2026/09/17 - 14:16:54 | 200 |       7.042µs |       192.0.2.1 | POST     "/api/v1/sign-sessions"
+[GIN] 2026/09/17 - 14:16:54 | 200 |      11.542µs |       192.0.2.1 | POST     "/api/v1/sign-sessions"
+[GIN] 2026/09/17 - 14:16:54 | 200 |        8.25µs |       192.0.2.1 | POST     "/api/v1/sign-sessions"
+[GIN] 2026/09/17 - 14:16:54 | 200 |      19.666µs |       192.0.2.1 | POST     "/api/v1/sign-sessions"
+[GIN] 2026/09/17 - 14:16:54 | 200 |      10.208µs |       192.0.2.1 | POST     "/api/v1/sign-sessions"
+[GIN] 2026/09/17 - 14:16:54 | 200 |        5.25µs |       192.0.2.1 | POST     "/api/v1/sign-sessions"
+[GIN] 2026/09/17 - 14:16:54 | 200 |       5.125µs |       192.0.2.1 | POST     "/api/v1/sign-sessions"
+[GIN] 2026/09/17 - 14:16:54 | 200 |      13.542µs |       192.0.2.1 | POST     "/api/v1/sign-sessions"
+[GIN] 2026/09/17 - 14:16:54 | 200 |       5.792µs |       192.0.2.1 | POST     "/api/v1/sign-sessions"
+[GIN] 2026/09/17 - 14:16:54 | 200 |       6.125µs |       192.0.2.1 | POST     "/api/v1/sign-sessions"
+[GIN] 2026/09/17 - 14:16:54 | 200 |       5.084µs |       192.0.2.1 | POST     "/api/v1/sign-sessions"
+[GIN] 2026/09/17 - 14:16:54 | 200 |      13.917µs |       192.0.2.1 | POST     "/api/v1/sign-sessions"
+[GIN] 2026/09/17 - 14:16:54 | 200 |        5.25µs |       192.0.2.1 | POST     "/api/v1/sign-sessions"
+[GIN] 2026/09/17 - 14:16:54 | 200 |       5.458µs |       192.0.2.1 | POST     "/api/v1/sign-sessions"
+[GIN] 2026/09/17 - 14:16:54 | 200 |       4.916µs |       192.0.2.1 | POST     "/api/v1/sign-sessions"
+[GIN] 2026/09/17 - 14:16:54 | 200 |       8.792µs |       192.0.2.1 | POST     "/api/v1/sign-sessions"
+[GIN] 2026/09/17 - 14:16:54 | 200 |      14.167µs |       192.0.2.1 | POST     "/api/v1/sign-sessions"
+[GIN] 2026/09/17 - 14:16:54 | 200 |       5.583µs |       192.0.2.1 | POST     "/api/v1/sign-sessions"
+[GIN] 2026/09/17 - 14:16:54 | 200 |      29.834µs |       192.0.2.1 | POST     "/api/v1/sign-sessions"
+[GIN] 2026/09/17 - 14:16:54 | 200 |      15.583µs |       192.0.2.1 | POST     "/api/v1/sign-sessions"
+[GIN] 2026/09/17 - 14:16:54 | 200 |      16.375µs |       192.0.2.1 | POST     "/api/v1/sign-sessions"
+[GIN] 2026/09/17 - 14:16:54 | 200 |      14.958µs |       192.0.2.1 | POST     "/api/v1/sign-sessions"
+[GIN] 2026/09/17 - 14:16:54 | 200 |      16.125µs |       192.0.2.1 | POST     "/api/v1/sign-sessions"
+    concurrency_test.go:100: PROFILE concurrency=25 p50=15.75µs p95=27.5µs p99=31.25µs throughput=190657.8 req/s failures=0 heap_delta=301384B
+=== RUN   TestConcurrencyProfile/concurrency_50
+[GIN] 2026/09/17 - 14:16:54 | 200 |       9.584µs |       192.0.2.1 | POST     "/api/v1/sign-sessions"
+[GIN] 2026/09/17 - 14:16:54 | 200 |       9.333µs |       192.0.2.1 | POST     "/api/v1/sign-sessions"
+[GIN] 2026/09/17 - 14:16:54 | 200 |      11.875µs |       192.0.2.1 | POST     "/api/v1/sign-sessions"
+[GIN] 2026/09/17 - 14:16:54 | 200 |       5.875µs |       192.0.2.1 | POST     "/api/v1/sign-sessions"
+[GIN] 2026/09/17 - 14:16:54 | 200 |       6.125µs |       192.0.2.1 | POST     "/api/v1/sign-sessions"
+[GIN] 2026/09/17 - 14:16:54 | 200 |       9.125µs |       192.0.2.1 | POST     "/api/v1/sign-sessions"
+[GIN] 2026/09/17 - 14:16:54 | 200 |       8.875µs |       192.0.2.1 | POST     "/api/v1/sign-sessions"
+[GIN] 2026/09/17 - 14:16:54 | 200 |       6.208µs |       192.0.2.1 | POST     "/api/v1/sign-sessions"
+[GIN] 2026/09/17 - 14:16:54 | 200 |       5.917µs |       192.0.2.1 | POST     "/api/v1/sign-sessions"
+[GIN] 2026/09/17 - 14:16:54 | 200 |       6.917µs |       192.0.2.1 | POST     "/api/v1/sign-sessions"
+[GIN] 2026/09/17 - 14:16:54 | 200 |       4.958µs |       192.0.2.1 | POST     "/api/v1/sign-sessions"
+[GIN] 2026/09/17 - 14:16:54 | 200 |       5.041µs |       192.0.2.1 | POST     "/api/v1/sign-sessions"
+[GIN] 2026/09/17 - 14:16:54 | 200 |       5.584µs |       192.0.2.1 | POST     "/api/v1/sign-sessions"
+[GIN] 2026/09/17 - 14:16:54 | 200 |       5.542µs |       192.0.2.1 | POST     "/api/v1/sign-sessions"
+[GIN] 2026/09/17 - 14:16:54 | 200 |      10.875µs |       192.0.2.1 | POST     "/api/v1/sign-sessions"
+[GIN] 2026/09/17 - 14:16:54 | 200 |       5.208µs |       192.0.2.1 | POST     "/api/v1/sign-sessions"
+[GIN] 2026/09/17 - 14:16:54 | 200 |       5.666µs |       192.0.2.1 | POST     "/api/v1/sign-sessions"
+[GIN] 2026/09/17 - 14:16:54 | 200 |       6.541µs |       192.0.2.1 | POST     "/api/v1/sign-sessions"
+[GIN] 2026/09/17 - 14:16:54 | 200 |       5.125µs |       192.0.2.1 | POST     "/api/v1/sign-sessions"
+[GIN] 2026/09/17 - 14:16:54 | 200 |       12.75µs |       192.0.2.1 | POST     "/api/v1/sign-sessions"
+[GIN] 2026/09/17 - 14:16:54 | 200 |        4.75µs |       192.0.2.1 | POST     "/api/v1/sign-sessions"
+[GIN] 2026/09/17 - 14:16:54 | 200 |       9.125µs |       192.0.2.1 | POST     "/api/v1/sign-sessions"
+[GIN] 2026/09/17 - 14:16:54 | 200 |         4.5µs |       192.0.2.1 | POST     "/api/v1/sign-sessions"
+[GIN] 2026/09/17 - 14:16:54 | 200 |       4.833µs |       192.0.2.1 | POST     "/api/v1/sign-sessions"
+[GIN] 2026/09/17 - 14:16:54 | 200 |       4.833µs |       192.0.2.1 | POST     "/api/v1/sign-sessions"
+[GIN] 2026/09/17 - 14:16:54 | 200 |         5.5µs |       192.0.2.1 | POST     "/api/v1/sign-sessions"
+[GIN] 2026/09/17 - 14:16:54 | 200 |           7µs |       192.0.2.1 | POST     "/api/v1/sign-sessions"
+[GIN] 2026/09/17 - 14:16:54 | 200 |      10.292µs |       192.0.2.1 | POST     "/api/v1/sign-sessions"
+[GIN] 2026/09/17 - 14:16:54 | 200 |       9.416µs |       192.0.2.1 | POST     "/api/v1/sign-sessions"
+[GIN] 2026/09/17 - 14:16:54 | 200 |       6.625µs |       192.0.2.1 | POST     "/api/v1/sign-sessions"
+[GIN] 2026/09/17 - 14:16:54 | 200 |      40.208µs |       192.0.2.1 | POST     "/api/v1/sign-sessions"
+[GIN] 2026/09/17 - 14:16:54 | 200 |      17.791µs |       192.0.2.1 | POST     "/api/v1/sign-sessions"
+[GIN] 2026/09/17 - 14:16:54 | 200 |      39.666µs |       192.0.2.1 | POST     "/api/v1/sign-sessions"
+[GIN] 2026/09/17 - 14:16:54 | 200 |      77.083µs |       192.0.2.1 | POST     "/api/v1/sign-sessions"
+[GIN] 2026/09/17 - 14:16:54 | 200 |        18.5µs |       192.0.2.1 | POST     "/api/v1/sign-sessions"
+[GIN] 2026/09/17 - 14:16:54 | 200 |      32.292µs |       192.0.2.1 | POST     "/api/v1/sign-sessions"
+[GIN] 2026/09/17 - 14:16:54 | 200 |      48.792µs |       192.0.2.1 | POST     "/api/v1/sign-sessions"
+[GIN] 2026/09/17 - 14:16:54 | 200 |      48.459µs |       192.0.2.1 | POST     "/api/v1/sign-sessions"
+[GIN] 2026/09/17 - 14:16:54 | 200 |       9.917µs |       192.0.2.1 | POST     "/api/v1/sign-sessions"
+[GIN] 2026/09/17 - 14:16:54 | 200 |      63.625µs |       192.0.2.1 | POST     "/api/v1/sign-sessions"
+[GIN] 2026/09/17 - 14:16:54 | 200 |      15.209µs |       192.0.2.1 | POST     "/api/v1/sign-sessions"
+[GIN] 2026/09/17 - 14:16:54 | 200 |      60.458µs |       192.0.2.1 | POST     "/api/v1/sign-sessions"
+[GIN] 2026/09/17 - 14:16:54 | 200 |      64.708µs |       192.0.2.1 | POST     "/api/v1/sign-sessions"
+[GIN] 2026/09/17 - 14:16:54 | 200 |      58.541µs |       192.0.2.1 | POST     "/api/v1/sign-sessions"
+[GIN] 2026/09/17 - 14:16:54 | 200 |       92.75µs |       192.0.2.1 | POST     "/api/v1/sign-sessions"
+[GIN] 2026/09/17 - 14:16:54 | 200 |      75.917µs |       192.0.2.1 | POST     "/api/v1/sign-sessions"
+[GIN] 2026/09/17 - 14:16:54 | 200 |      99.459µs |       192.0.2.1 | POST     "/api/v1/sign-sessions"
+[GIN] 2026/09/17 - 14:16:54 | 200 |      59.583µs |       192.0.2.1 | POST     "/api/v1/sign-sessions"
+[GIN] 2026/09/17 - 14:16:54 | 200 |       81.75µs |       192.0.2.1 | POST     "/api/v1/sign-sessions"
+[GIN] 2026/09/17 - 14:16:54 | 200 |      17.042µs |       192.0.2.1 | POST     "/api/v1/sign-sessions"
+    concurrency_test.go:100: PROFILE concurrency=50 p50=17.333µs p95=95.084µs p99=105.209µs throughput=254777.1 req/s failures=0 heap_delta=549536B
+=== RUN   TestConcurrencyProfile/concurrency_100
+[GIN] 2026/09/17 - 14:16:54 | 200 |       9.083µs |       192.0.2.1 | POST     "/api/v1/sign-sessions"
+[GIN] 2026/09/17 - 14:16:54 | 200 |       9.459µs |       192.0.2.1 | POST     "/api/v1/sign-sessions"
+[GIN] 2026/09/17 - 14:16:54 | 200 |       9.917µs |       192.0.2.1 | POST     "/api/v1/sign-sessions"
+[GIN] 2026/09/17 - 14:16:54 | 200 |       5.875µs |       192.0.2.1 | POST     "/api/v1/sign-sessions"
+[GIN] 2026/09/17 - 14:16:54 | 200 |       9.625µs |       192.0.2.1 | POST     "/api/v1/sign-sessions"
+[GIN] 2026/09/17 - 14:16:54 | 200 |       6.042µs |       192.0.2.1 | POST     "/api/v1/sign-sessions"
+[GIN] 2026/09/17 - 14:16:54 | 200 |      14.625µs |       192.0.2.1 | POST     "/api/v1/sign-sessions"
+[GIN] 2026/09/17 - 14:16:54 | 200 |       6.584µs |       192.0.2.1 | POST     "/api/v1/sign-sessions"
+[GIN] 2026/09/17 - 14:16:54 | 200 |        5.75µs |       192.0.2.1 | POST     "/api/v1/sign-sessions"
+[GIN] 2026/09/17 - 14:16:54 | 200 |       6.208µs |       192.0.2.1 | POST     "/api/v1/sign-sessions"
+[GIN] 2026/09/17 - 14:16:54 | 200 |       5.667µs |       192.0.2.1 | POST     "/api/v1/sign-sessions"
+[GIN] 2026/09/17 - 14:16:54 | 200 |      10.416µs |       192.0.2.1 | POST     "/api/v1/sign-sessions"
+[GIN] 2026/09/17 - 14:16:54 | 200 |           5µs |       192.0.2.1 | POST     "/api/v1/sign-sessions"
+[GIN] 2026/09/17 - 14:16:54 | 200 |       4.917µs |       192.0.2.1 | POST     "/api/v1/sign-sessions"
+[GIN] 2026/09/17 - 14:16:54 | 200 |       4.708µs |       192.0.2.1 | POST     "/api/v1/sign-sessions"
+[GIN] 2026/09/17 - 14:16:54 | 200 |       5.041µs |       192.0.2.1 | POST     "/api/v1/sign-sessions"
+[GIN] 2026/09/17 - 14:16:54 | 200 |       4.459µs |       192.0.2.1 | POST     "/api/v1/sign-sessions"
+[GIN] 2026/09/17 - 14:16:54 | 200 |           6µs |       192.0.2.1 | POST     "/api/v1/sign-sessions"
+[GIN] 2026/09/17 - 14:16:54 | 200 |       6.708µs |       192.0.2.1 | POST     "/api/v1/sign-sessions"
+[GIN] 2026/09/17 - 14:16:54 | 200 |      11.375µs |       192.0.2.1 | POST     "/api/v1/sign-sessions"
+[GIN] 2026/09/17 - 14:16:54 | 200 |       5.375µs |       192.0.2.1 | POST     "/api/v1/sign-sessions"
+[GIN] 2026/09/17 - 14:16:54 | 200 |       6.916µs |       192.0.2.1 | POST     "/api/v1/sign-sessions"
+[GIN] 2026/09/17 - 14:16:54 | 200 |        8.25µs |       192.0.2.1 | POST     "/api/v1/sign-sessions"
+[GIN] 2026/09/17 - 14:16:54 | 200 |       4.875µs |       192.0.2.1 | POST     "/api/v1/sign-sessions"
+[GIN] 2026/09/17 - 14:16:54 | 200 |      34.875µs |       192.0.2.1 | POST     "/api/v1/sign-sessions"
+[GIN] 2026/09/17 - 14:16:54 | 200 |      11.334µs |       192.0.2.1 | POST     "/api/v1/sign-sessions"
+[GIN] 2026/09/17 - 14:16:54 | 200 |       6.041µs |       192.0.2.1 | POST     "/api/v1/sign-sessions"
+[GIN] 2026/09/17 - 14:16:54 | 200 |       9.667µs |       192.0.2.1 | POST     "/api/v1/sign-sessions"
+[GIN] 2026/09/17 - 14:16:54 | 200 |      33.833µs |       192.0.2.1 | POST     "/api/v1/sign-sessions"
+[GIN] 2026/09/17 - 14:16:54 | 200 |       6.084µs |       192.0.2.1 | POST     "/api/v1/sign-sessions"
+[GIN] 2026/09/17 - 14:16:54 | 200 |       6.167µs |       192.0.2.1 | POST     "/api/v1/sign-sessions"
+[GIN] 2026/09/17 - 14:16:54 | 200 |       6.125µs |       192.0.2.1 | POST     "/api/v1/sign-sessions"
+[GIN] 2026/09/17 - 14:16:54 | 200 |       7.333µs |       192.0.2.1 | POST     "/api/v1/sign-sessions"
+[GIN] 2026/09/17 - 14:16:54 | 200 |        5.25µs |       192.0.2.1 | POST     "/api/v1/sign-sessions"
+[GIN] 2026/09/17 - 14:16:54 | 200 |       5.791µs |       192.0.2.1 | POST     "/api/v1/sign-sessions"
+[GIN] 2026/09/17 - 14:16:54 | 200 |      21.792µs |       192.0.2.1 | POST     "/api/v1/sign-sessions"
+[GIN] 2026/09/17 - 14:16:54 | 200 |       5.667µs |       192.0.2.1 | POST     "/api/v1/sign-sessions"
+[GIN] 2026/09/17 - 14:16:54 | 200 |          22µs |       192.0.2.1 | POST     "/api/v1/sign-sessions"
+[GIN] 2026/09/17 - 14:16:54 | 200 |      25.541µs |       192.0.2.1 | POST     "/api/v1/sign-sessions"
+[GIN] 2026/09/17 - 14:16:54 | 200 |       5.209µs |       192.0.2.1 | POST     "/api/v1/sign-sessions"
+[GIN] 2026/09/17 - 14:16:54 | 200 |      22.958µs |       192.0.2.1 | POST     "/api/v1/sign-sessions"
+[GIN] 2026/09/17 - 14:16:54 | 200 |       6.125µs |       192.0.2.1 | POST     "/api/v1/sign-sessions"
+[GIN] 2026/09/17 - 14:16:54 | 200 |       21.25µs |       192.0.2.1 | POST     "/api/v1/sign-sessions"
+[GIN] 2026/09/17 - 14:16:54 | 200 |         5.5µs |       192.0.2.1 | POST     "/api/v1/sign-sessions"
+[GIN] 2026/09/17 - 14:16:54 | 200 |       5.458µs |       192.0.2.1 | POST     "/api/v1/sign-sessions"
+[GIN] 2026/09/17 - 14:16:54 | 200 |       4.708µs |       192.0.2.1 | POST     "/api/v1/sign-sessions"
+[GIN] 2026/09/17 - 14:16:54 | 200 |      27.542µs |       192.0.2.1 | POST     "/api/v1/sign-sessions"
+[GIN] 2026/09/17 - 14:16:54 | 200 |     102.709µs |       192.0.2.1 | POST     "/api/v1/sign-sessions"
+[GIN] 2026/09/17 - 14:16:54 | 200 |           5µs |       192.0.2.1 | POST     "/api/v1/sign-sessions"
+[GIN] 2026/09/17 - 14:16:54 | 200 |       5.292µs |       192.0.2.1 | POST     "/api/v1/sign-sessions"
+[GIN] 2026/09/17 - 14:16:54 | 200 |      10.917µs |       192.0.2.1 | POST     "/api/v1/sign-sessions"
+[GIN] 2026/09/17 - 14:16:54 | 200 |       4.917µs |       192.0.2.1 | POST     "/api/v1/sign-sessions"
+[GIN] 2026/09/17 - 14:16:54 | 200 |          33µs |       192.0.2.1 | POST     "/api/v1/sign-sessions"
+[GIN] 2026/09/17 - 14:16:54 | 200 |     102.792µs |       192.0.2.1 | POST     "/api/v1/sign-sessions"
+[GIN] 2026/09/17 - 14:16:54 | 200 |        5.25µs |       192.0.2.1 | POST     "/api/v1/sign-sessions"
+[GIN] 2026/09/17 - 14:16:54 | 200 |       5.584µs |       192.0.2.1 | POST     "/api/v1/sign-sessions"
+[GIN] 2026/09/17 - 14:16:54 | 200 |       8.583µs |       192.0.2.1 | POST     "/api/v1/sign-sessions"
+[GIN] 2026/09/17 - 14:16:54 | 200 |           9µs |       192.0.2.1 | POST     "/api/v1/sign-sessions"
+[GIN] 2026/09/17 - 14:16:54 | 200 |      14.583µs |       192.0.2.1 | POST     "/api/v1/sign-sessions"
+[GIN] 2026/09/17 - 14:16:54 | 200 |      19.709µs |       192.0.2.1 | POST     "/api/v1/sign-sessions"
+[GIN] 2026/09/17 - 14:16:54 | 200 |      20.834µs |       192.0.2.1 | POST     "/api/v1/sign-sessions"
+[GIN] 2026/09/17 - 14:16:54 | 200 |     197.792µs |       192.0.2.1 | POST     "/api/v1/sign-sessions"
+[GIN] 2026/09/17 - 14:16:54 | 200 |     206.417µs |       192.0.2.1 | POST     "/api/v1/sign-sessions"
+[GIN] 2026/09/17 - 14:16:54 | 200 |     273.708µs |       192.0.2.1 | POST     "/api/v1/sign-sessions"
+[GIN] 2026/09/17 - 14:16:54 | 200 |     226.333µs |       192.0.2.1 | POST     "/api/v1/sign-sessions"
+[GIN] 2026/09/17 - 14:16:54 | 200 |     126.042µs |       192.0.2.1 | POST     "/api/v1/sign-sessions"
+[GIN] 2026/09/17 - 14:16:54 | 200 |     355.792µs |       192.0.2.1 | POST     "/api/v1/sign-sessions"
+[GIN] 2026/09/17 - 14:16:54 | 200 |       24.25µs |       192.0.2.1 | POST     "/api/v1/sign-sessions"
+[GIN] 2026/09/17 - 14:16:54 | 200 |     381.041µs |       192.0.2.1 | POST     "/api/v1/sign-sessions"
+[GIN] 2026/09/17 - 14:16:54 | 200 |         436µs |       192.0.2.1 | POST     "/api/v1/sign-sessions"
+[GIN] 2026/09/17 - 14:16:54 | 200 |     394.958µs |       192.0.2.1 | POST     "/api/v1/sign-sessions"
+[GIN] 2026/09/17 - 14:16:54 | 200 |     399.375µs |       192.0.2.1 | POST     "/api/v1/sign-sessions"
+[GIN] 2026/09/17 - 14:16:54 | 200 |     403.209µs |       192.0.2.1 | POST     "/api/v1/sign-sessions"
+[GIN] 2026/09/17 - 14:16:54 | 200 |     405.084µs |       192.0.2.1 | POST     "/api/v1/sign-sessions"
+[GIN] 2026/09/17 - 14:16:54 | 200 |     438.709µs |       192.0.2.1 | POST     "/api/v1/sign-sessions"
+[GIN] 2026/09/17 - 14:16:54 | 200 |     443.167µs |       192.0.2.1 | POST     "/api/v1/sign-sessions"
+[GIN] 2026/09/17 - 14:16:54 | 200 |     434.875µs |       192.0.2.1 | POST     "/api/v1/sign-sessions"
+[GIN] 2026/09/17 - 14:16:54 | 200 |     446.083µs |       192.0.2.1 | POST     "/api/v1/sign-sessions"
+[GIN] 2026/09/17 - 14:16:54 | 200 |      502.25µs |       192.0.2.1 | POST     "/api/v1/sign-sessions"
+[GIN] 2026/09/17 - 14:16:54 | 200 |     508.291µs |       192.0.2.1 | POST     "/api/v1/sign-sessions"
+[GIN] 2026/09/17 - 14:16:54 | 200 |     516.583µs |       192.0.2.1 | POST     "/api/v1/sign-sessions"
+[GIN] 2026/09/17 - 14:16:54 | 200 |     617.542µs |       192.0.2.1 | POST     "/api/v1/sign-sessions"
+[GIN] 2026/09/17 - 14:16:54 | 200 |     642.625µs |       192.0.2.1 | POST     "/api/v1/sign-sessions"
+[GIN] 2026/09/17 - 14:16:54 | 200 |     658.333µs |       192.0.2.1 | POST     "/api/v1/sign-sessions"
+[GIN] 2026/09/17 - 14:16:54 | 200 |     641.125µs |       192.0.2.1 | POST     "/api/v1/sign-sessions"
+[GIN] 2026/09/17 - 14:16:54 | 200 |     649.792µs |       192.0.2.1 | POST     "/api/v1/sign-sessions"
+[GIN] 2026/09/17 - 14:16:54 | 200 |     654.625µs |       192.0.2.1 | POST     "/api/v1/sign-sessions"
+[GIN] 2026/09/17 - 14:16:54 | 200 |     669.208µs |       192.0.2.1 | POST     "/api/v1/sign-sessions"
+[GIN] 2026/09/17 - 14:16:54 | 200 |     668.875µs |       192.0.2.1 | POST     "/api/v1/sign-sessions"
+[GIN] 2026/09/17 - 14:16:54 | 200 |     671.542µs |       192.0.2.1 | POST     "/api/v1/sign-sessions"
+[GIN] 2026/09/17 - 14:16:54 | 200 |     675.167µs |       192.0.2.1 | POST     "/api/v1/sign-sessions"
+[GIN] 2026/09/17 - 14:16:54 | 200 |     677.625µs |       192.0.2.1 | POST     "/api/v1/sign-sessions"
+[GIN] 2026/09/17 - 14:16:54 | 200 |     671.417µs |       192.0.2.1 | POST     "/api/v1/sign-sessions"
+[GIN] 2026/09/17 - 14:16:54 | 200 |       670.5µs |       192.0.2.1 | POST     "/api/v1/sign-sessions"
+[GIN] 2026/09/17 - 14:16:54 | 200 |     668.458µs |       192.0.2.1 | POST     "/api/v1/sign-sessions"
+[GIN] 2026/09/17 - 14:16:54 | 200 |     667.709µs |       192.0.2.1 | POST     "/api/v1/sign-sessions"
+[GIN] 2026/09/17 - 14:16:54 | 200 |     695.375µs |       192.0.2.1 | POST     "/api/v1/sign-sessions"
+[GIN] 2026/09/17 - 14:16:54 | 200 |     639.583µs |       192.0.2.1 | POST     "/api/v1/sign-sessions"
+[GIN] 2026/09/17 - 14:16:54 | 200 |     646.875µs |       192.0.2.1 | POST     "/api/v1/sign-sessions"
+[GIN] 2026/09/17 - 14:16:54 | 200 |         641µs |       192.0.2.1 | POST     "/api/v1/sign-sessions"
+    concurrency_test.go:100: PROFILE concurrency=100 p50=33.916µs p95=674.583µs p99=696.75µs throughput=118853.1 req/s failures=0 heap_delta=276528B
 --- PASS: TestConcurrencyProfile (0.00s)
+    --- PASS: TestConcurrencyProfile/concurrency_10 (0.00s)
+    --- PASS: TestConcurrencyProfile/concurrency_25 (0.00s)
+    --- PASS: TestConcurrencyProfile/concurrency_50 (0.00s)
+    --- PASS: TestConcurrencyProfile/concurrency_100 (0.00s)
+=== RUN   TestTwentyFunctionalChecks
+[GIN-debug] [WARNING] Running in "debug" mode. Switch to "release" mode in production.
+ - using env:	export GIN_MODE=release
+ - using code:	gin.SetMode(gin.ReleaseMode)
+
+[GIN-debug] GET    /api/v1/health            --> mpc-wallet-demo/apps/tss-wallet-service/internal/transport/httpapi.(*TSSWalletController).Health-fm (4 handlers)
+[GIN-debug] GET    /api/v1/wallets           --> mpc-wallet-demo/apps/tss-wallet-service/internal/transport/httpapi.(*TSSWalletController).WalletList-fm (4 handlers)
+[GIN-debug] POST   /api/v1/wallets           --> mpc-wallet-demo/apps/tss-wallet-service/internal/transport/httpapi.(*TSSWalletController).WalletCreate-fm (4 handlers)
+[GIN-debug] GET    /api/v1/wallets/:id       --> mpc-wallet-demo/apps/tss-wallet-service/internal/transport/httpapi.(*TSSWalletController).WalletDetail-fm (4 handlers)
+[GIN-debug] GET    /api/v1/wallets/:id/addresses --> mpc-wallet-demo/apps/tss-wallet-service/internal/transport/httpapi.(*TSSWalletController).WalletAddresses-fm (4 handlers)
+[GIN-debug] GET    /api/v1/wallets/:id/balance --> mpc-wallet-demo/apps/tss-wallet-service/internal/transport/httpapi.(*TSSWalletController).WalletBalance-fm (4 handlers)
+[GIN-debug] GET    /api/v1/transactions      --> mpc-wallet-demo/apps/tss-wallet-service/internal/transport/httpapi.(*TSSWalletController).TransactionList-fm (4 handlers)
+[GIN-debug] POST   /api/v1/transactions      --> mpc-wallet-demo/apps/tss-wallet-service/internal/transport/httpapi.(*TSSWalletController).TransactionCreate-fm (4 handlers)
+[GIN-debug] GET    /api/v1/transactions/:id  --> mpc-wallet-demo/apps/tss-wallet-service/internal/transport/httpapi.(*TSSWalletController).TransactionDetail-fm (4 handlers)
+[GIN-debug] GET    /api/v1/sign-sessions     --> mpc-wallet-demo/apps/tss-wallet-service/internal/transport/httpapi.(*TSSWalletController).SessionList-fm (4 handlers)
+[GIN-debug] POST   /api/v1/sign-sessions     --> mpc-wallet-demo/apps/tss-wallet-service/internal/transport/httpapi.(*TSSWalletController).SessionCreate-fm (4 handlers)
+[GIN-debug] GET    /api/v1/sign-sessions/:id --> mpc-wallet-demo/apps/tss-wallet-service/internal/transport/httpapi.(*TSSWalletController).SessionDetail-fm (4 handlers)
+[GIN-debug] POST   /api/v1/sign-sessions/:id/approve --> mpc-wallet-demo/apps/tss-wallet-service/internal/transport/httpapi.(*TSSWalletController).SessionApprove-fm (4 handlers)
+[GIN-debug] POST   /api/v1/sign-sessions/:id/cancel --> mpc-wallet-demo/apps/tss-wallet-service/internal/transport/httpapi.(*TSSWalletController).SessionCancel-fm (4 handlers)
+[GIN-debug] GET    /api/v1/participants      --> mpc-wallet-demo/apps/tss-wallet-service/internal/transport/httpapi.(*TSSWalletController).ParticipantList-fm (4 handlers)
+[GIN-debug] POST   /api/v1/participants/:id/refresh --> mpc-wallet-demo/apps/tss-wallet-service/internal/transport/httpapi.(*TSSWalletController).ParticipantRefresh-fm (4 handlers)
+[GIN-debug] GET    /api/v1/key-epochs        --> mpc-wallet-demo/apps/tss-wallet-service/internal/transport/httpapi.(*TSSWalletController).KeyEpochList-fm (4 handlers)
+[GIN-debug] GET    /api/v1/key-epochs/:id    --> mpc-wallet-demo/apps/tss-wallet-service/internal/transport/httpapi.(*TSSWalletController).KeyEpochDetail-fm (4 handlers)
+[GIN-debug] GET    /api/v1/audit-logs        --> mpc-wallet-demo/apps/tss-wallet-service/internal/transport/httpapi.(*TSSWalletController).AuditLogList-fm (4 handlers)
+[GIN-debug] POST   /api/v1/nodes/heartbeat   --> mpc-wallet-demo/apps/tss-wallet-service/internal/transport/httpapi.(*TSSWalletController).NodeHeartbeat-fm (4 handlers)
+[GIN-debug] GET    /api/v1/system/metrics    --> mpc-wallet-demo/apps/tss-wallet-service/internal/transport/httpapi.(*TSSWalletController).Metrics-fm (4 handlers)
+=== RUN   TestTwentyFunctionalChecks/T01_health_check
+[GIN] 2026/09/17 - 14:16:54 | 200 |      63.833µs |       192.0.2.1 | GET      "/api/v1/health"
+=== RUN   TestTwentyFunctionalChecks/T02_wallet_list
+[GIN] 2026/09/17 - 14:16:54 | 200 |      22.541µs |       192.0.2.1 | GET      "/api/v1/wallets"
+=== RUN   TestTwentyFunctionalChecks/T03_wallet_detail
+[GIN] 2026/09/17 - 14:16:54 | 200 |      27.458µs |       192.0.2.1 | GET      "/api/v1/wallets/wallet-demo-001"
+=== RUN   TestTwentyFunctionalChecks/T04_wallet_addresses
+[GIN] 2026/09/17 - 14:16:54 | 200 |       9.917µs |       192.0.2.1 | GET      "/api/v1/wallets/wallet-demo-001/addresses"
+=== RUN   TestTwentyFunctionalChecks/T05_wallet_balance
+[GIN] 2026/09/17 - 14:16:54 | 200 |       6.375µs |       192.0.2.1 | GET      "/api/v1/wallets/wallet-demo-001/balance"
+=== RUN   TestTwentyFunctionalChecks/T06_participant_list
+[GIN] 2026/09/17 - 14:16:54 | 200 |      18.666µs |       192.0.2.1 | GET      "/api/v1/participants"
+=== RUN   TestTwentyFunctionalChecks/T07_key_epoch_list
+[GIN] 2026/09/17 - 14:16:54 | 200 |      16.959µs |       192.0.2.1 | GET      "/api/v1/key-epochs"
+=== RUN   TestTwentyFunctionalChecks/T08_key_epoch_detail
+[GIN] 2026/09/17 - 14:16:54 | 200 |       5.917µs |       192.0.2.1 | GET      "/api/v1/key-epochs/1"
+=== RUN   TestTwentyFunctionalChecks/T09_audit_log_list
+[GIN] 2026/09/17 - 14:16:54 | 200 |       5.458µs |       192.0.2.1 | GET      "/api/v1/audit-logs"
+=== RUN   TestTwentyFunctionalChecks/T10_metrics
+[GIN] 2026/09/17 - 14:16:54 | 200 |      18.542µs |       192.0.2.1 | GET      "/api/v1/system/metrics"
+=== RUN   TestTwentyFunctionalChecks/T11_node_heartbeat
+[GIN] 2026/09/17 - 14:16:54 | 200 |      33.959µs |       192.0.2.1 | POST     "/api/v1/nodes/heartbeat"
+=== RUN   TestTwentyFunctionalChecks/T12_create_transaction
+[GIN] 2026/09/17 - 14:16:54 | 200 |      62.417µs |       192.0.2.1 | POST     "/api/v1/transactions"
+=== RUN   TestTwentyFunctionalChecks/T13_transaction_detail
+[GIN] 2026/09/17 - 14:16:54 | 200 |       5.916µs |       192.0.2.1 | GET      "/api/v1/transactions/tx-20260917061654-000001"
+=== RUN   TestTwentyFunctionalChecks/T14_create_signing_session
+[GIN] 2026/09/17 - 14:16:54 | 200 |       8.458µs |       192.0.2.1 | POST     "/api/v1/sign-sessions"
+=== RUN   TestTwentyFunctionalChecks/T15_first_approval
+[GIN] 2026/09/17 - 14:16:54 | 200 |       14.75µs |       192.0.2.1 | POST     "/api/v1/sign-sessions/sign-20260917061654-000003/approve"
+=== RUN   TestTwentyFunctionalChecks/T16_second_approval_completes_signing
+[GIN] 2026/09/17 - 14:16:54 | 200 |     200.958µs |       192.0.2.1 | POST     "/api/v1/sign-sessions/sign-20260917061654-000003/approve"
+=== RUN   TestTwentyFunctionalChecks/T17_duplicate_approval_rejected
+[GIN] 2026/09/17 - 14:16:54 | 200 |       8.209µs |       192.0.2.1 | POST     "/api/v1/sign-sessions/sign-20260917061654-000003/approve"
+=== RUN   TestTwentyFunctionalChecks/T18_missing_wallet
+[GIN] 2026/09/17 - 14:16:54 | 200 |       5.042µs |       192.0.2.1 | GET      "/api/v1/wallets/missing"
+=== RUN   TestTwentyFunctionalChecks/T19_invalid_session_payload
+[GIN] 2026/09/17 - 14:16:54 | 200 |       7.916µs |       192.0.2.1 | POST     "/api/v1/sign-sessions"
+=== RUN   TestTwentyFunctionalChecks/T20_session_detail
+[GIN] 2026/09/17 - 14:16:54 | 200 |         5.5µs |       192.0.2.1 | GET      "/api/v1/sign-sessions/sign-20260917061654-000003"
+--- PASS: TestTwentyFunctionalChecks (0.00s)
+    --- PASS: TestTwentyFunctionalChecks/T01_health_check (0.00s)
+    --- PASS: TestTwentyFunctionalChecks/T02_wallet_list (0.00s)
+    --- PASS: TestTwentyFunctionalChecks/T03_wallet_detail (0.00s)
+    --- PASS: TestTwentyFunctionalChecks/T04_wallet_addresses (0.00s)
+    --- PASS: TestTwentyFunctionalChecks/T05_wallet_balance (0.00s)
+    --- PASS: TestTwentyFunctionalChecks/T06_participant_list (0.00s)
+    --- PASS: TestTwentyFunctionalChecks/T07_key_epoch_list (0.00s)
+    --- PASS: TestTwentyFunctionalChecks/T08_key_epoch_detail (0.00s)
+    --- PASS: TestTwentyFunctionalChecks/T09_audit_log_list (0.00s)
+    --- PASS: TestTwentyFunctionalChecks/T10_metrics (0.00s)
+    --- PASS: TestTwentyFunctionalChecks/T11_node_heartbeat (0.00s)
+    --- PASS: TestTwentyFunctionalChecks/T12_create_transaction (0.00s)
+    --- PASS: TestTwentyFunctionalChecks/T13_transaction_detail (0.00s)
+    --- PASS: TestTwentyFunctionalChecks/T14_create_signing_session (0.00s)
+    --- PASS: TestTwentyFunctionalChecks/T15_first_approval (0.00s)
+    --- PASS: TestTwentyFunctionalChecks/T16_second_approval_completes_signing (0.00s)
+    --- PASS: TestTwentyFunctionalChecks/T17_duplicate_approval_rejected (0.00s)
+    --- PASS: TestTwentyFunctionalChecks/T18_missing_wallet (0.00s)
+    --- PASS: TestTwentyFunctionalChecks/T19_invalid_session_payload (0.00s)
+    --- PASS: TestTwentyFunctionalChecks/T20_session_detail (0.00s)
 PASS
-ok  	mpc-wallet-demo/cmd/server	0.599s
+ok  	mpc-wallet-demo/apps/tss-wallet-service/internal/transport/httpapi	0.404s
+?   	mpc-wallet-demo/apps/tss-wallet-service/internal/worker/consumers	[no test files]
+?   	mpc-wallet-demo/apps/tss-wallet-service/internal/worker/cron	[no test files]
+?   	mpc-wallet-demo/internal/database/mysql	[no test files]
+?   	mpc-wallet-demo/internal/database/redis	[no test files]
+=== RUN   TestEmbeddedMigrationContainsTSSCoreTables
+--- PASS: TestEmbeddedMigrationContainsTSSCoreTables (0.00s)
+PASS
+ok  	mpc-wallet-demo/migrations/wallet	0.265s
 === RUN   TestTwoOfThreeParameterMapping
 --- PASS: TestTwoOfThreeParameterMapping (0.00s)
 PASS
-ok  	mpc-wallet-demo/internal/tssconfig	0.810s
+ok  	mpc-wallet-demo/signer/tss-common/parameters	0.140s
 === RUN   TestKeygenThenTwoPartySign
---- PASS: TestKeygenThenTwoPartySign (1.19s)
+=== RUN   TestKeygenThenTwoPartySign/node1+node2
+=== RUN   TestKeygenThenTwoPartySign/node1+node3
+=== RUN   TestKeygenThenTwoPartySign/node2+node3
+--- PASS: TestKeygenThenTwoPartySign (1.47s)
+    --- PASS: TestKeygenThenTwoPartySign/node1+node2 (0.12s)
+    --- PASS: TestKeygenThenTwoPartySign/node1+node3 (0.13s)
+    --- PASS: TestKeygenThenTwoPartySign/node2+node3 (0.12s)
 PASS
-ok  	mpc-wallet-demo/internal/tssprotocol	2.211s
+ok  	mpc-wallet-demo/signer/tss-common/protocol	1.786s

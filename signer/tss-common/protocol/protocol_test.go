@@ -2,6 +2,7 @@ package tssprotocol
 
 import (
 	"crypto/ecdsa"
+	"fmt"
 	"math/big"
 	"sync/atomic"
 	"testing"
@@ -17,9 +18,38 @@ import (
 const parties, threshold = 3, 1
 
 // TestKeygenThenTwoPartySign is an integration test of tss-lib v1.5.0. It
-// starts three DKG state machines, then signs with two of the resulting key
-// shares and verifies the final ECDSA signature under the DKG public key.
+// starts three DKG state machines once, then signs with every two-party
+// combination of the resulting key shares and verifies each final ECDSA
+// signature under the same DKG public key. This proves that any two of the
+// three participants implement the 2-of-3 signing policy.
 func TestKeygenThenTwoPartySign(t *testing.T) {
+	keys, ids := runThreePartyDKG(t)
+
+	signCombinations := []struct {
+		name       string
+		leftIndex  int
+		rightIndex int
+		message    int64
+	}{
+		{name: "node1+node2", leftIndex: 0, rightIndex: 1, message: 2026091601},
+		{name: "node1+node3", leftIndex: 0, rightIndex: 2, message: 2026091602},
+		{name: "node2+node3", leftIndex: 1, rightIndex: 2, message: 2026091603},
+	}
+
+	pub := ecdsa.PublicKey{Curve: tss.S256(), X: keys[0].ECDSAPub.X(), Y: keys[0].ECDSAPub.Y()}
+	for _, combo := range signCombinations {
+		t.Run(combo.name, func(t *testing.T) {
+			msg := big.NewInt(combo.message)
+			sigR, sigS := runTwoPartySign(t, keys, ids, combo.leftIndex, combo.rightIndex, msg)
+			if !ecdsa.Verify(&pub, msg.Bytes(), new(big.Int).SetBytes(sigR), new(big.Int).SetBytes(sigS)) {
+				t.Fatal("ECDSA verification failed")
+			}
+		})
+	}
+}
+
+func runThreePartyDKG(t *testing.T) ([]keygen.LocalPartySaveData, tss.SortedPartyIDs) {
+	t.Helper()
 	fixtures, _, err := keygen.LoadKeygenTestFixtures(parties)
 	if err != nil {
 		t.Fatal(err)
@@ -70,17 +100,21 @@ func TestKeygenThenTwoPartySign(t *testing.T) {
 	if keys[0].ECDSAPub.X() == nil || keys[0].ECDSAPub.Y() == nil {
 		t.Fatal("DKG did not return public key")
 	}
+	return keys, ids
+}
 
-	selectedIDs := tss.SortedPartyIDs{ids[0], ids[1]}
+func runTwoPartySign(t *testing.T, keys []keygen.LocalPartySaveData, ids tss.SortedPartyIDs, leftIndex, rightIndex int, message *big.Int) ([]byte, []byte) {
+	t.Helper()
+	selectedIDs := tss.SortPartyIDs(tss.UnSortedPartyIDs{ids[leftIndex], ids[rightIndex]})
 	signCtx := tss.NewPeerContext(selectedIDs)
 	signOut := make(chan tss.Message, 128)
 	signDone := make(chan common.SignatureData, 2)
 	signErrs := make(chan *tss.Error, 16)
-	message := big.NewInt(20260916)
 	signers := make([]tss.Party, 2)
+	keyIndex := []int{leftIndex, rightIndex}
 	for i := 0; i < 2; i++ {
 		p := tss.NewParameters(tss.S256(), signCtx, selectedIDs[i], 2, threshold)
-		signers[i] = signing.NewLocalParty(message, p, keys[i], signOut, signDone)
+		signers[i] = signing.NewLocalParty(message, p, keys[keyIndex[i]], signOut, signDone)
 		go func(party tss.Party) {
 			if e := party.Start(); e != nil {
 				signErrs <- e
@@ -88,8 +122,8 @@ func TestKeygenThenTwoPartySign(t *testing.T) {
 		}(signers[i])
 	}
 	var count int32
-	var signature common.SignatureData
-	deadline = time.After(90 * time.Second)
+	var sigR, sigS []byte
+	deadline := time.After(90 * time.Second)
 	for atomic.LoadInt32(&count) < 2 {
 		select {
 		case err := <-signErrs:
@@ -105,14 +139,11 @@ func TestKeygenThenTwoPartySign(t *testing.T) {
 				go tsstest.SharedPartyUpdater(signers[to[0].Index], msg, signErrs)
 			}
 		case sig := <-signDone:
-			signature = sig
+			sigR, sigS = sig.R, sig.S
 			atomic.AddInt32(&count, 1)
 		case <-deadline:
-			t.Fatal("signing timed out")
+			t.Fatal(fmt.Sprintf("signing timed out for parties %d,%d", leftIndex, rightIndex))
 		}
 	}
-	pub := ecdsa.PublicKey{Curve: tss.S256(), X: keys[0].ECDSAPub.X(), Y: keys[0].ECDSAPub.Y()}
-	if !ecdsa.Verify(&pub, message.Bytes(), new(big.Int).SetBytes(signature.R), new(big.Int).SetBytes(signature.S)) {
-		t.Fatal("ECDSA verification failed")
-	}
+	return sigR, sigS
 }

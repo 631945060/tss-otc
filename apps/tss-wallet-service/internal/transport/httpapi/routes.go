@@ -47,6 +47,8 @@ func NewRouter(staticDir string, servicesOverride ...*application.TSSWalletServi
 			participantGroup.GET("", controller.ParticipantList)
 			participantGroup.POST("/:id/refresh", controller.ParticipantRefresh)
 		}
+		api.GET("/key-epochs", controller.KeyEpochList)
+		api.GET("/key-epochs/:id", controller.KeyEpochDetail)
 		api.GET("/audit-logs", controller.AuditLogList)
 		api.POST("/nodes/heartbeat", controller.NodeHeartbeat)
 		api.GET("/system/metrics", controller.Metrics)

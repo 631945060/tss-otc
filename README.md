@@ -67,6 +67,8 @@ docs/test-reports/             test cases and historical run logs
 | `/api/v1/sign-sessions/:id/cancel` | POST | Cancel a signing session |
 | `/api/v1/participants` | GET | List participant nodes |
 | `/api/v1/participants/:id/refresh` | POST | Create a reshare request |
+| `/api/v1/key-epochs` | GET | List key epochs |
+| `/api/v1/key-epochs/:id` | GET | Get key epoch detail |
 | `/api/v1/nodes/heartbeat` | POST | Report participant heartbeat |
 | `/api/v1/audit-logs` | GET | Read audit entries |
 | `/api/v1/system/metrics` | GET | Read operational metrics |
